@@ -7,10 +7,11 @@ function InfoPage() {
 
   const dispatch = useDispatch();
   const allArt = useSelector((store) => store.allArtReducer);
+  console.log(allArt);
   
   useEffect(() => {
 
-    dispatch({ type: 'SET_ART_REDUCER' });
+    dispatch({ type: 'SET_ART_REDUCER', allArt });
 
   }, []);
 
