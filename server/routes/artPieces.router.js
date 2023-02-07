@@ -55,7 +55,7 @@ router.post('/', upload.single("file"), async (req, res)=>{
       
       const sqlText = `
         INSERT INTO "artPieces"
-          ("title", "image", "price", "description" "userId" )
+          ("title", "image", "price", "description", "userId")
             VALUES
               ($1, $2, $3, $4, $5);
       `;
