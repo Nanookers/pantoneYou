@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import UserUpload from '../UserUpload/UserUpload';
 
 import './App.css';
 
@@ -95,6 +96,14 @@ function App() {
               <RegisterPage />
             }
           </Route>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/upload"
+          >
+            <UserUpload />
+          </ProtectedRoute>
 
           <Route
             exact

@@ -25,7 +25,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /** ---------- Multer | S3 ---------- **/
 require('dotenv').config();
 const multer = require('multer');
-const { s3Uploadv2 } = require('./s3service');
+const { s3Uploadv2 } = require('../s3Service');
 
 
 const fileFilter = (req, file, cb) =>{
@@ -41,30 +41,36 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage, fileFilter })
 
 
-app.post('/', upload.single("file"), async (req, res)=>{
-    
-    const result = await s3Uploadv2(req.file)
-    res.json({status: "success", result})
-    const imageAddress = result.Location
-    
-    const sqlText = `
-      INSERT INTO "artPieces"
-        ("title", "image", "price", "description", "userId" )
-        VALUES
-        ($1, $2, $3, $4, $5);
-    `;
-  
-    const sqlValues = [ imageAddress ];
-  
-    pool.query(sqlText, sqlValues)
-      .then((dbRes) => {
-        res.sendStatus(201);
-      })
-      .catch((dbErr) => {
-        console.error('db error in POST /api/images', dbErr)
-        res.sendStatus(500);
-      })
-  })
+router.post('/', upload.single("file"), async (req, res)=>{
+  try {
+
+      const result = await s3Uploadv2(req.file)
+      
+      const imageAddress = result.Location
+      const title = req.body.title
+      const price = req.body.price
+      const description = req.body.description
+      const user = req.user.id
+      
+
+      
+      const sqlText = `
+        INSERT INTO "artPieces"
+          ("title", "image", "price", "description" "userId" )
+            VALUES
+              ($1, $2, $3, $4, $5);
+      `;
+      
+      const sqlValues = [ title, imageAddress, price, description, user ];
+      console.log(sqlText, sqlValues);
+      await pool.query(sqlText, sqlValues)
+      res.status(201).json({status: "success", result});
+  } catch(err) {
+      console.error('Error in POST /api/images', err)
+      res.status(500).json({status: "failure", message: err});
+  }
+})
+
 
 
 
