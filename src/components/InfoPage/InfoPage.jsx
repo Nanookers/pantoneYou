@@ -1,11 +1,19 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
 
 function InfoPage() {
+
+  const dispatch = useDispatch();
+  const allArt = useSelector((store) => store.allArtReducer);
+  
+  useEffect(() => {
+
+    dispatch({ type: 'SET_ART_REDUCER' });
+
+  }, []);
+
   return (
     <div className="container">
       <p>Info Page</p>

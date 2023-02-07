@@ -4,15 +4,16 @@ const router = express.Router();
 
 const { rejectUnauthenticated } = require('../modules/authentication-middleware')
 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
+  console.log(userId);
 
   const sqlQuery = `
     SELECT * FROM "artPieces"
-      WHERE "user_id"=$1
-        ORDER BY "id";
+      WHERE "id"=$1
+        ORDER BY "title";
   `
-  const sqlValues = [currentUserID];
+  const sqlValues = [userId];
   pool.query(sqlQuery, sqlValues)
   .then((dbRes) => {
     res.send(dbRes.rows);
