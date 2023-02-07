@@ -43,16 +43,15 @@ const upload = multer({ storage, fileFilter })
 
 router.post('/', upload.single("file"), async (req, res)=>{
   try {
-
+      //initiates the upload of the photo
       const result = await s3Uploadv2(req.file)
       
+      // imageAddress gets the link that the photo is stored at
       const imageAddress = result.Location
       const title = req.body.title
       const price = req.body.price
       const description = req.body.description
       const user = req.user.id
-      
-
       
       const sqlText = `
         INSERT INTO "artPieces"

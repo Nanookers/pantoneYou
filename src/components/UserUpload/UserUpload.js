@@ -34,7 +34,7 @@ function UserUpload() {
     // console.log('*********', fileInput)
     console.log(fileInput, titleInput, priceInput, descriptionInput );
     dispatch({
-      type: 'SEND_FILE',
+      type: 'SAGA_ADD_NEW_ART',
       payload: {
         fileInput,
         title: titleInput,
