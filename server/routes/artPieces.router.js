@@ -36,10 +36,8 @@ const fileFilter = (req, file, cb) =>{
     }
 }
 
-
 const storage = multer.memoryStorage()
 const upload = multer({ storage, fileFilter })
-
 
 router.post('/', upload.single("file"), async (req, res)=>{
   try {
@@ -63,7 +61,9 @@ router.post('/', upload.single("file"), async (req, res)=>{
       const sqlValues = [ title, imageAddress, price, description, user ];
       console.log(sqlText, sqlValues);
       await pool.query(sqlText, sqlValues)
-      res.status(201).json({status: "success", result});
+      .then((dbRes) => {
+        res.send(dbRes.rows);
+      })
   } catch(err) {
       console.error('Error in POST /api/images', err)
       res.status(500).json({status: "failure", message: err});

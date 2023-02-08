@@ -13,8 +13,6 @@ function* addArtSaga(action){
         image.append('title', action.payload.title);
         image.append('price', action.payload.price);
         image.append('description', action.payload.description);
-        
-        console.log(image);
 
         const response = yield axios.post('/artPieces', image, {
             headers: {

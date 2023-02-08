@@ -10,9 +10,7 @@ function InfoPage() {
   console.log(allArt);
   
   useEffect(() => {
-
-    dispatch({ type: 'SET_ART_REDUCER', allArt });
-
+    dispatch({ type: 'SAGA_GET_ART' });
   }, []);
 
   return (
