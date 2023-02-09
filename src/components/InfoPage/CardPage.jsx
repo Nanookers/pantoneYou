@@ -2,6 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListArtModal from './ListArtModal';
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import ButtonGroup from '@mui/material/ButtonGroup'
 
 
 function CardIndividual( {art} ){
@@ -22,8 +26,8 @@ function CardIndividual( {art} ){
         <h1>Card Goes Here</h1>
         <div key={art.id}>
             <img src={art.image} />
-            <button onClick={handleListClick}>List</button>
-            <ListArtModal open ={open} onClose = {() => setOpen(false)} art={art}/>
+            <Button onClick={handleListClick}>List</Button>
+            <ListArtModal open={open} onClose={() => setOpen(false)} art={art}/>
         </div> 
         </>
     )

@@ -10,7 +10,7 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const artPiecesRouter = require('./routes/artPieces.router');
-// const galleryLocationChange = reqiuire('./routes/updateListing.router')
+const galleryLocationChange = require('./routes/updateListing.router')
 
 
 // Body parser middleware
@@ -27,7 +27,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/artPieces', artPiecesRouter); //router that GETS and POSTs to the main database.
-// app.use('/updatListing', galleryLocationChange); //router that POSTs to the LOCATION databse, and Updates the gallery location of artPieces.
+app.use('/updateListing', galleryLocationChange); //router that POSTs to the LOCATION databse, and Updates the gallery location of artPieces.
 
 
 // Serve static files

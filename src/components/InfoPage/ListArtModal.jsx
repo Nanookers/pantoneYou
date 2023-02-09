@@ -12,7 +12,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
 
     const [ nameInput , setGalleryName ] = useState('')
     const [ addressInput , setAddress ] = useState('')
-    const [ commissionInput , setComission ] = useState()
+    const [ commissionInput , setComission ] = useState('')
 
     const dispatch = useDispatch();
 
@@ -32,8 +32,18 @@ const ListArtModal = ( { open, onClose, art } ) => {
         pb: 3,
     };
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch({ 
+            type: 'SAGA_POST_GALLERY',
+            payload:{
+                galleryName: nameInput,
+                galleryAddress: addressInput,
+                galleryCut: commissionInput,
+                artId: art.id
+            }
+        });
+        onClose(); 
     }
 
   return (
@@ -44,6 +54,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
     >
+        <form onSubmit={handleSubmit} >
         <Box sx={{ ...style, width: 500 }}>
           <h2 id="child-modal-title">List at a Local Gallery</h2>
           <TextField sx={{width: 500, height: 75 }} 
@@ -65,7 +76,6 @@ const ListArtModal = ( { open, onClose, art } ) => {
                 label="Gallery Comission" 
                     variant="standard" 
                         type="number" 
-                            value={ commissionInput }
                                 onChange={(event) => setComission(event.target.value)}
             />
           <ButtonGroup
@@ -74,9 +84,10 @@ const ListArtModal = ( { open, onClose, art } ) => {
             aria-label="Disabled elevation buttons"
             fullWidth={true}>
             <Button onClick={onClose}  variant="outlined" >Close</Button>
-            <Button onSubmit={handleSubmit}>Submit</Button>
+            <Button type="submit">Submit</Button>
           </ButtonGroup>
         </Box>
+        </form>
     </Modal>
     
   )
