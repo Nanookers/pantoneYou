@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function* addGalleryLocation() {
     yield takeLatest('SAGA_POST_GALLERY', addGallery);
+    yield takeLatest('SAGA_UNLIST_FROM_GALLERY', unListGallery)
 }
 
 function* addGallery(action) {
@@ -25,6 +26,18 @@ function* addGallery(action) {
     } catch (error) {
       console.log('could not find', error);
     }
+}
+
+function* unListGallery(action){
+  try{
+    console.log(action.payload);
+    const response = yield call(axios.put, '/updateListinginChildDB', {
+      locationId: action.payload.galleryLocation,
+      artId: action.payload.artId
+    })
+  }catch (error) {
+    console.log('could not find', error);
   }
+}
 
 export default addGalleryLocation;

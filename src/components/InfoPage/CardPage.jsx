@@ -2,11 +2,15 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListArtModal from './ListArtModal';
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import ButtonGroup from '@mui/material/ButtonGroup'
+import './CardPage.css';
 
+import Button from '@mui/material/Button'
+import ButtonGroup from '@mui/material/ButtonGroup'
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import CardMedia from '@mui/material/CardMedia';
+import Card from '@mui/material/Card';
 
 function CardIndividual( {art} ){
     
@@ -25,25 +29,56 @@ function CardIndividual( {art} ){
     // Figure out how to set ternary for button dissable
     // Selling it also has to timestamp it
 
-    const handleSold = () => {
+    console.log(art.galleryLocation);
 
+    const handleSold = (event) => {
+        event.preventDefault
+        const location = art.galleryLocation > 0 ? true : false;
+        return dispatch({
+            type: 'SAGA_PUT_SOLD_STATUS',
+            payload: {
+                artId: art.id,
+                locationSold: art.galleryLocation
+            }
+        })
+    }
+
+    const handleUnlist = (event) => {
+        event.preventDefault();
+        dispatch({ 
+            type: 'SAGA_UNLIST_FROM_GALLERY',
+            payload:{
+                galleryLocation: null,
+                artId: art.id
+            }
+        });
     }
     
     return (
         <>
-        <h1>Card Goes Here</h1>
         <div key={art.id}>
-            <img src={art.image} />
-            <ButtonGroup
-            disableElevation
-            variant="contained"
-            aria-label="Disabled elevation buttons"
-            fullWidth={true}>
-                <Button onClick={handleListClick}>List</Button>
-                <Button onClick={handleSold}>Sell</Button>
-                    <ListArtModal open={open} onClose={() => setOpen(false)} art={art}/>
-          </ButtonGroup>
-
+            <Card sx={{ maxWidth: 400, maxHeight: 510 }}>
+                <CardContent>
+                    <Typography variant="h4" component="div">
+                        {art.title} 
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {art.description}
+                    </Typography>
+                    <CardMedia sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}>
+                        <div className="imageSize"> <img src={art.image} /> </div>
+                    </CardMedia>
+                </CardContent>
+                <CardActions>
+                    <ButtonGroup
+                        fullWidth={true}>
+                        <Button onClick={handleListClick} disabled={art.galleryLocation > 0}>List</Button>
+                        <Button onClick={handleSold}>Sell</Button>
+                        <Button onClick={handleUnlist} disabled={art.galleryLocation === 0}>Unlist</Button>
+                        <ListArtModal open={open} onClose={() => setOpen(false)} art={art}/>
+                    </ButtonGroup>
+                </CardActions>
+            </Card>
         </div> 
         </>
     )

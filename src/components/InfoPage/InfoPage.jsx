@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CardIndividual from './CardPage';
+import './InfoPage.css'
 
 
 function InfoPage() {
@@ -18,7 +19,6 @@ function InfoPage() {
 
   return (
     <div className="container">
-      <p>Info Page</p>
       {
         allArt.map((art) => {
           return(

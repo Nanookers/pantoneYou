@@ -1,0 +1,5 @@
+.imageSize{
+    max-width: 355;
+    max-height: 355;
+    object-fit: contain
+}

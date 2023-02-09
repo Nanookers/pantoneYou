@@ -5,7 +5,6 @@ const router = express.Router();
 /** ---------- Add a Gallery ---------- **/
 
 router.post( '/', async (req, res) => {
-
     try{
         const galleryName = req.body.galleryName
         const galleryAddress = req.body.galleryAddress
@@ -25,8 +24,6 @@ router.post( '/', async (req, res) => {
         res.status(500).json({ status: "failure", message: err });
     }
 })
-
-
 
 module.exports = router;
 
