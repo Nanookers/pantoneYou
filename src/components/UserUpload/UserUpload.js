@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 function UserUpload() {
   
   const dispatch = useDispatch();
-  let images = useSelector((store) => store.imagesReducer)
   
   const [ fileInput , setFileInput ] = useState('')
   const [ titleInput , setTitleInput ] = useState('')
