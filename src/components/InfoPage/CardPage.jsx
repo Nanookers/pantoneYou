@@ -13,12 +13,20 @@ function CardIndividual( {art} ){
     const[ open, setOpen ] = useState(false) //for opening the modal
     const dispatch = useDispatch();
 
-    // On click, appear pop up to submit new information.
-    // dispatch information together.
-    // On backend, send the 
-
     const handleListClick = (event) => {
+        // Sets the open state to true, it is passed through the 
+        // compnent as a prop so it can be turned.
         setOpen(true)
+    }
+
+    // Notes for tomorrow: 
+    // Set up sell button.
+    // Figure out how to delist sold items from main gallery
+    // Figure out how to set ternary for button dissable
+    // Selling it also has to timestamp it
+
+    const handleSold = () => {
+
     }
     
     return (
@@ -26,8 +34,16 @@ function CardIndividual( {art} ){
         <h1>Card Goes Here</h1>
         <div key={art.id}>
             <img src={art.image} />
-            <Button onClick={handleListClick}>List</Button>
-            <ListArtModal open={open} onClose={() => setOpen(false)} art={art}/>
+            <ButtonGroup
+            disableElevation
+            variant="contained"
+            aria-label="Disabled elevation buttons"
+            fullWidth={true}>
+                <Button onClick={handleListClick}>List</Button>
+                <Button onClick={handleSold}>Sell</Button>
+                    <ListArtModal open={open} onClose={() => setOpen(false)} art={art}/>
+          </ButtonGroup>
+
         </div> 
         </>
     )

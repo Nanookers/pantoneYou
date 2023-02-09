@@ -11,6 +11,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const artPiecesRouter = require('./routes/artPieces.router');
 const galleryLocationChange = require('./routes/updateListing.router')
+const galleryLocationChangeDB = require('./routes/updateLocation.router')
 
 
 // Body parser middleware
@@ -27,7 +28,8 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/artPieces', artPiecesRouter); //router that GETS and POSTs to the main database.
-app.use('/updateListing', galleryLocationChange); //router that POSTs to the LOCATION databse, and Updates the gallery location of artPieces.
+app.use('/updateListing', galleryLocationChange); //router that POSTs to the LOCATION databse, 
+app.use('/updateListinginChildDB', galleryLocationChangeDB); // Updates the gallery location of artPieces based on the above pose
 
 
 // Serve static files
