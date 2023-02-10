@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import ConditionalGallery from '../ConditionalGallery/ConditionalGallery';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -66,7 +66,7 @@ function App() {
             exact
             path="/info"
           >
-            <InfoPage />
+            <ConditionalGallery />
           </ProtectedRoute>
 
           <Route

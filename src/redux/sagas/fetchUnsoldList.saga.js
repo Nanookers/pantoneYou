@@ -1,19 +1,19 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* fetchArtSaga() {
-    yield takeLatest('SAGA_GET_ART', fetchArt);
+function* fetchUnsoldList() {
+    yield takeLatest('SAGA_GET_ART_UNSOLD', fetchUnsold);
 }
 
-function* fetchArt(){
+function* fetchUnsold(){
     try {
+
         const response = yield axios.get('/artPieces');
-        yield put({ type: 'SET_ART_REDUCER', payload: response.data });
+        yield put({ type: 'SET_UNSOLD_FILTER_REDUCER', payload: response.data });
 
     }catch (error) {
         console.error('Error fetching art pieces:', error);
     }
 }
 
-
-export default fetchArtSaga;
+export default fetchUnsoldList

@@ -15,6 +15,7 @@ const galleryLocationChangeDB = require('./routes/updateLocation.router')
 const soldStatusUpdate = require('./routes/updateSoldStatus.router')
 
 
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

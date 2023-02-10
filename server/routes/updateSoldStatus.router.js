@@ -23,8 +23,7 @@ router.put('/', async (req, res) => {
                     WHERE "artId" = $2;
         `
         const sqlValues = [ locationSold, artId ]
-        const dbRes = await pool.query(sqlText, sqlValues);  
-        
+        const dbRes = await pool.query(sqlText, sqlValues);    
 
     }catch (err) {
         console.error('Error in PUT soldStatus', err);

@@ -6,6 +6,8 @@ import fetchArtSaga from './getAllArt.saga';
 import uploadArtSaga from './addArtSaga.saga';
 import addGalleryLocation from './addPostGallery.saga';
 import updateSoldStatus from './updateSold.saga';
+import fetchFilteredArtUnlisted from './fetchFilteredArt.saga';
+import fetchUnsoldList from './fetchUnsoldList.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +25,7 @@ export default function* rootSaga() {
     uploadArtSaga(),
     addGalleryLocation(),
     updateSoldStatus(),
+    fetchFilteredArtUnlisted(),
+    fetchUnsoldList()
   ]);
 }
