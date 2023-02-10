@@ -33,6 +33,7 @@ function CardIndividual( {art} ){
 
     const handleSold = (event) => {
         event.preventDefault
+        // art.galleryLocation is clicking a number
         const location = art.galleryLocation > 0 ? true : false;
         return dispatch({
             type: 'SAGA_PUT_SOLD_STATUS',
@@ -73,7 +74,11 @@ function CardIndividual( {art} ){
                     <ButtonGroup
                         fullWidth={true}>
                         <Button onClick={handleListClick} disabled={art.galleryLocation > 0}>List</Button>
-                        <Button onClick={handleSold}>Sell</Button>
+                        <Button onClick={handleSold} 
+                                    disabled={art.galleryLocation === null || 
+                                        art.galleryLocation === 0 || 
+                                            art.soldStatus === true }>Sell
+                        </Button>
                         <Button onClick={handleUnlist} disabled={art.galleryLocation === 0}>Unlist</Button>
                         <ListArtModal open={open} onClose={() => setOpen(false)} art={art}/>
                     </ButtonGroup>

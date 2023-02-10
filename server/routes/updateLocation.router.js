@@ -17,7 +17,7 @@ router.put('/', async (req, res) => {
         const sqlValues = [ locationId, artId ]
         const dbRes = await pool.query(sqlText, sqlValues);
     }catch (err) {
-        console.error('Error in POST', err);
+        console.error('Error in PUT Gallery Location', err);
         res.status(500).json({ status: "failure", message: err });
     }
 })
