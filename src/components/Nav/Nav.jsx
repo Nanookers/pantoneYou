@@ -32,8 +32,8 @@ function Nav() {
               Info Page
             </Link>
 
-            <Link className="navLink" to="/upload">
-              Upload
+            <Link className="navLink" to="/tables">
+              Sales
             </Link>
 
             <LogOutButton className="navLink" />

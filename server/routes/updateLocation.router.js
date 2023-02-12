@@ -8,13 +8,16 @@ router.put('/', async (req, res) => {
 
         locationId = req.body.locationId
         artId = req.body.artId
+        activeStatus= req.body.activeStatus 
+        console.log(activeStatus);
 
         const sqlText =`
             UPDATE "artPieces"
-                SET "galleryLocation" = $1
-                    WHERE "id" = $2;
+                SET "galleryLocation" = $1,
+                    "galleryStatus" = $3
+                        WHERE "id" = $2;
         `
-        const sqlValues = [ locationId, artId ]
+        const sqlValues = [ locationId, artId, activeStatus ]
         const dbRes = await pool.query(sqlText, sqlValues);
     }catch (err) {
         console.error('Error in PUT Gallery Location', err);

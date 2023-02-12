@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import ListArtModal from './ListArtModal';
 import './CardPage.css';
 
@@ -15,33 +15,39 @@ import Card from '@mui/material/Card';
 function CardIndividual( {art} ){
     
     const[ open, setOpen ] = useState(false) //for opening the modal
+    const [disableList, setDisableList] = useState(false); 
+    const [disableSold, setDisablesold] = useState(false); 
+    const [disableUnlist, setDisableUnlist] = useState(false); 
+
     const dispatch = useDispatch();
+
+    console.log(disableUnlist);
+
+    useEffect(() => {
+        art.galleryStatus === true ? setDisableList(true) : setDisableList(false)
+        art.galleryStatus === true ? setDisableUnlist(false) : setDisableUnlist(true)
+    }, [art]);
 
     const handleListClick = (event) => {
         // Sets the open state to true, it is passed through the 
         // compnent as a prop so it can be turned.
+        event.preventDefault()
+        setDisableList(!disableList);
+        setDisableUnlist(!disableUnlist)
         setOpen(true)
     }
 
-    // Notes for tomorrow: 
-    // Set up sell button.
-    // Figure out how to delist sold items from main gallery
-    // Figure out how to set ternary for button dissable
-    // Selling it also has to timestamp it
-
-    console.log(art.galleryLocation);
-
     const handleSold = (event) => {
-        event.preventDefault
+        event.preventDefault()
         // art.galleryLocation is clicking a number
-        const location = art.galleryLocation > 0 ? true : false;
-        return dispatch({
+        dispatch({
             type: 'SAGA_PUT_SOLD_STATUS',
             payload: {
                 artId: art.id,
                 locationSold: art.galleryLocation
             }
         })
+        setDisablesold(!disableSold)
     }
 
     const handleUnlist = (event) => {
@@ -53,6 +59,13 @@ function CardIndividual( {art} ){
                 artId: art.id
             }
         });
+        setDisableUnlist(!disableUnlist)
+        setDisableList(!disableList);
+    }
+
+    const detailViewClick = () => {
+        // history.push(`/`)
+        console.log(art.id);
     }
     
     return (
@@ -66,20 +79,20 @@ function CardIndividual( {art} ){
                     <Typography variant="body2" color="text.secondary">
                         {art.description}
                     </Typography>
-                    <CardMedia sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}>
+                    <CardMedia onClick={detailViewClick} sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}>
                         <div className="imageSize"> <img src={art.image} /> </div>
                     </CardMedia>
                 </CardContent>
                 <CardActions>
                     <ButtonGroup
                         fullWidth={true}>
-                        <Button onClick={handleListClick} disabled={art.galleryLocation > 0}>List</Button>
-                        <Button onClick={handleSold} 
-                                    disabled={art.galleryLocation === null || 
-                                        art.galleryLocation === 0 || 
-                                            art.soldStatus === true }>Sell
-                        </Button>
-                        <Button onClick={handleUnlist} disabled={art.galleryLocation === 0}>Unlist</Button>
+                            {/* disabled works with setState to immediately render the button change the ternary keeps the state on reload */}
+                            <Button onClick={handleListClick} disabled={disableList}>List</Button>
+
+                            <Button onClick={handleSold} disabled={disableSold}>Sold</Button>
+                            
+                            <Button onClick={handleUnlist} disabled={disableUnlist}>Unlist</Button>
+
                         <ListArtModal open={open} onClose={() => setOpen(false)} art={art}/>
                     </ButtonGroup>
                 </CardActions>

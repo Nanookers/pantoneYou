@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import UserUpload from '../UserUpload/UserUpload';
+import SoldTables from '../SoldTable/SoldTables';
 
 import './App.css';
 
@@ -67,6 +68,14 @@ function App() {
             path="/info"
           >
             <ConditionalGallery />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/tables"
+          >
+            <SoldTables />
           </ProtectedRoute>
 
           <Route

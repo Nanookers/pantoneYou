@@ -22,6 +22,7 @@ function* addGallery(action) {
       yield call(axios.put, '/updateListinginChildDB', {
         locationId: responseOne.data[0].id, 
         artId: action.payload.artId,
+        activeStatus : 'true'
       });
     } catch (error) {
       console.log('could not find', error);
@@ -33,7 +34,8 @@ function* unListGallery(action){
     console.log(action.payload);
     const response = yield call(axios.put, '/updateListinginChildDB', {
       locationId: action.payload.galleryLocation,
-      artId: action.payload.artId
+      artId: action.payload.artId,
+      activeStatus: 'false'
     })
   }catch (error) {
     console.log('could not find', error);

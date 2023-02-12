@@ -13,6 +13,7 @@ const artPiecesRouter = require('./routes/artPieces.router');
 const galleryLocationChange = require('./routes/updateListing.router')
 const galleryLocationChangeDB = require('./routes/updateLocation.router')
 const soldStatusUpdate = require('./routes/updateSoldStatus.router')
+const getSoldTables = require('./routes/soldTable.router')
 
 
 
@@ -33,7 +34,7 @@ app.use('/artPieces', artPiecesRouter); //router that GETS and POSTs to the main
 app.use('/updateListing', galleryLocationChange); //router that POSTs to the LOCATION databse, 
 app.use('/updateListinginChildDB', galleryLocationChangeDB); // Updates the gallery location of artPieces based on the above post
 app.use('/updateSoldStatus', soldStatusUpdate); // Updates the soldStatus of an ArtPieces and the gallery it was sold in
-
+app.use('/getSoldTables', getSoldTables); 
 
 // Serve static files
 app.use(express.static('build'));

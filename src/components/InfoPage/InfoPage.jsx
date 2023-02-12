@@ -13,68 +13,97 @@ import Checkbox from '@mui/material/Checkbox';
 
 
 function InfoPage() {
-
-  const dispatch = useDispatch();
-
+  
+  // Render the Gallery based on which box is checked.
   const [renderAllState, setGalleryState] = useState({
     all: true,
     unListed: false,
-    // unsold: false,
-    // activePieces: false,
+    unsold: false,
+    activePieces: false,
   })
 
   const allArt = useSelector((store) => store.allArtReducer);
-  const unlistedFilter = useSelector((store) => store.filterUnlistedArt);
   const unsoldFilter = useSelector((store) => store.filterUnsoldArt);
-  
+  const unlistedFilter = useSelector((store) => store.filterUnlistedArt);
+  const listedArt = useSelector((store) => store.filteredActiveStatus);
+
+  console.log(listedArt);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'SAGA_GET_ART' });
-    dispatch({type: 'SAGA_GET_ART_UNSOLD'})
+    getArtInfo()
   }, []);
 
-  const toggleAll = () => setGalleryState(!renderAllState.all)
-  const toggleUnlisted = () => setUnlistedGalleryState(!renderUnlisted.unlisted)
+  const getArtInfo = () => {
+    dispatch({ type: 'SAGA_GET_ART' });
+    dispatch({ type: 'SAGA_GET_ART_UNLISTED' });
+    dispatch({type: 'SAGA_GET_ART_UNSOLD'});
+    dispatch({type: 'SAGA_GET_ART_ACTIVE'});
+  }
   
+
   // Handles the toggle for All Features. 
   const handleToggleAll = () => {
     setGalleryState((prevState) => ({
       ...prevState,
       all: !prevState.all,
-      unListed: false
+      unListed: false,
+      unsold: false,
+      activePieces: false
     }))
   };
   
   // Handles the toggle for Unlisted Art
   const handleToggleUnlisted = () => {
-    dispatch({ type: 'SAGA_GET_ART_UNLISTED' });
     setGalleryState((prevState) => ({
       ...prevState,
       all: false,
       unListed: !prevState.unListed,
+      unsold: false,
+      activePieces: false
     }))
   };
-  
 
+  // Handles the toggle for unsold Art
+  const handleToggleUnsold = () => {
 
+    setGalleryState((prevState) => ({
+      ...prevState,
+      all: false,
+      unListed: false,
+      unsold: !prevState.unsold,
+      activePieces: false
+    }))
+  };
 
+  // Handles the toggle for Active art
+  const handleToggleActiveArt = () => {
 
+    setGalleryState((prevState) => ({
+      ...prevState,
+      all: false,
+      unListed: false,
+      unsold: false,
+      activePieces: !prevState.unsold,
+    }))
+  };
   
   return (
     <>
                   <FormGroup>
-                    {/* <FormControlLabel
+                    <FormControlLabel
                         control={
-                        <Checkbox  onChange={handleChange} checked={unsold} name="unsold"/>
+                        <Checkbox  onChange={handleToggleUnsold} checked={renderAllState.unsold} name="unsold"/>
                         }
                         label="Unsold Pieces"
                     />
                     <FormControlLabel
                         control={
-                        <Checkbox  onChange={handleChange} checked={activePieces} name="activePieces" />
+                        <Checkbox  onChange={handleToggleActiveArt} checked={renderAllState.activePieces} name="activePieces" />
                         }
                         label="Pieces In Galleries"
-                    /> */}
+                    />
                     <FormControlLabel
                         control={
                         <Checkbox  onChange={handleToggleUnlisted} checked={renderAllState.unListed} name="unListed"/>
@@ -93,13 +122,25 @@ function InfoPage() {
       {
         renderAllState.all !== false ? (allArt.map((art) => { 
           return (<CardIndividual art={art} key={art.id} />)  
-        })) : <h1></h1>
+        })) : null
       }
       {/* This Renders Unlisted Art */}
       {
         renderAllState.unListed !== false ? (unlistedFilter.map((art) => { 
           return (<CardIndividual art={art} key={art.id} />)  
-        })) : <h1></h1>
+        })) : null
+      }
+      {/* This Renders Unsold Art */}
+      {
+        renderAllState.unsold !== false ? (unsoldFilter.map((art) => { 
+          return (<CardIndividual art={art} key={art.id} />)  
+        })) : null
+      }
+      {/* This Renders active Art */}
+      {
+        renderAllState.activePieces !== false ? (listedArt.map((art) => { 
+          return (<CardIndividual art={art} key={art.id} />)  
+        })) : null
       }
     </div>
     </>
