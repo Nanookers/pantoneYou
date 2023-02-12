@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 const { rejectUnauthenticated } = require('../modules/authentication-middleware')
-
+/** ---------- GET ALL ART  ROUTE ---------- **/
 router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   
@@ -87,5 +87,29 @@ router.post('/', upload.single("file"), async (req, res) => {
   }
 });
 
+/** ---------- GET INDIVIDUAL ART ROUTE ---------- **/
+router.get('/',  (req, res) => {
+  const userId = req.params.id;
+  
+  const sqlQuery = `
+    SELECT 
+    "artPieces"."title",
+    "artPieces"."image",
+    "artPieces"."description",
+    "artPieces"."galleryStatus"
+      FROM "artPieces"
+        WHERE "artPieces"."id"=$1;
+    `
+  const sqlValues = [userId];
+  console.log(sqlQuery, sqlValues);
+  pool.query(sqlQuery, sqlValues)
+  .then((dbRes) => {
+    res.send(dbRes.rows);
+  })
+  .catch((dbErr) => {
+    console.log('GET things failed in * from artPieces:', dbErr);
+      res.sendStatus(500);
+  })
+});
 
 module.exports = router;

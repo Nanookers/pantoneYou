@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ListArtModal from './ListArtModal';
 import './CardPage.css';
@@ -28,6 +29,7 @@ function CardIndividual( {art} ){
         art.galleryStatus === true ? setDisableUnlist(false) : setDisableUnlist(true)
     }, [art]);
 
+    // Send dispatch, and set state of the List buttons
     const handleListClick = (event) => {
         // Sets the open state to true, it is passed through the 
         // compnent as a prop so it can be turned.
@@ -36,7 +38,7 @@ function CardIndividual( {art} ){
         setDisableUnlist(!disableUnlist)
         setOpen(true)
     }
-
+    // Send dispatch, and set state of the Sold buttons
     const handleSold = (event) => {
         event.preventDefault()
         // art.galleryLocation is clicking a number
@@ -49,7 +51,7 @@ function CardIndividual( {art} ){
         })
         setDisablesold(!disableSold)
     }
-
+    // Send dispatch, and set state of the UnList button
     const handleUnlist = (event) => {
         event.preventDefault();
         dispatch({ 
@@ -63,8 +65,10 @@ function CardIndividual( {art} ){
         setDisableList(!disableList);
     }
 
+    const history = useHistory()
+
     const detailViewClick = () => {
-        // history.push(`/`)
+        history.push(`/info/${art.id}`)
         console.log(art.id);
     }
     

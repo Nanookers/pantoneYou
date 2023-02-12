@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import UserUpload from '../UserUpload/UserUpload';
 import SoldTables from '../SoldTable/SoldTables';
+import InfoIndividual from '../InfoForIndividual/InfoIndividual';
 
 import './App.css';
 
@@ -68,6 +69,14 @@ function App() {
             path="/info"
           >
             <ConditionalGallery />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/info/:id"
+          >
+            <InfoIndividual />
           </ProtectedRoute>
 
           <ProtectedRoute
