@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import EditModal from './EditModalIndividual';
+import DeleteInfoModal from './DeleteModal';
 
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup'
@@ -16,6 +17,7 @@ import Card from '@mui/material/Card';
 const InfoIndividual = () => {
 
     const[ open, setOpen ] = useState(false) //for opening the modal
+    const[ openDelete, setOpenDelete ] = useState(false) //for opening the modal
 
     const params = useParams();
     const dispatch = useDispatch();
@@ -38,6 +40,7 @@ const InfoIndividual = () => {
 
     const handleDelete = () => {
       console.log(params.id);
+      setOpenDelete(true);
     }
     
   return (
@@ -56,7 +59,8 @@ const InfoIndividual = () => {
               <Button onClick={handleDelete}>Delete</Button>
 
               <EditModal open={open} onClose={() => setOpen(false)} singleArt={singleArt} idUpdate={params.id} />
-
+              <DeleteInfoModal open={openDelete} onClose={() => setOpenDelete(false)} idToDelete={params.id} />
+              
           </ButtonGroup>
         </div>
     </>
