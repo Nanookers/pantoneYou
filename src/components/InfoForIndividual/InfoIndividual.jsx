@@ -21,7 +21,7 @@ const InfoIndividual = () => {
     const dispatch = useDispatch();
 
     const singleArt = useSelector((store)  =>  store.singleArtPiece)
-    console.log(singleArt);
+    console.log(params.id);
   
   
     useEffect(() => {
@@ -33,7 +33,6 @@ const InfoIndividual = () => {
     
     const handleEdit = (event) => {
       event.preventDefault();
-
       setOpen(true)
     }
 
@@ -44,17 +43,21 @@ const InfoIndividual = () => {
   return (
     <>
       <div className="individualArtCard">
-       {<img src={singleArt.image}/>}
-       <ButtonGroup
-          fullWidth={true}>
-            {/* disabled works with setState to immediately render the button change the ternary keeps the state on reload */}
-            <Button onClick={handleEdit} >Edit</Button>
+        {<img src={singleArt.image}/>}
+        {<p>{singleArt.title}</p>}
+        {<p>{singleArt.description}</p>}
+        {<p>{singleArt.price}</p>}
+        
+        <ButtonGroup
+            fullWidth={true}>
+              {/* disabled works with setState to immediately render the button change the ternary keeps the state on reload */}
+              <Button onClick={handleEdit} >Edit</Button>
 
-            <Button onClick={handleDelete}>Delete</Button>
+              <Button onClick={handleDelete}>Delete</Button>
 
-            <EditModal open={open} onClose={() => setOpen(false)} singleArt={singleArt} />
+              <EditModal open={open} onClose={() => setOpen(false)} singleArt={singleArt} idUpdate={params.id} />
 
-        </ButtonGroup>
+          </ButtonGroup>
         </div>
     </>
   )

@@ -9,6 +9,9 @@ const singleArtPiece = (state = {}, action) => {
         case 'SET_NEW_DESCRIPTION':
             const newDescription = action.payload
             return {...state, description: newDescription}
+        case 'SET_NEW_PRICE':
+            const newPrice = action.payload
+            return {...state, price: newPrice}
         default: 
             return state;
     }

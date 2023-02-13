@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import ButtonGroup from '@mui/material/ButtonGroup'
 
-const EditModal = ( { singleArt, open, onClose } ) => {
+const EditModal = ( { singleArt, open, onClose, idUpdate } ) => {
 
     const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ const EditModal = ( { singleArt, open, onClose } ) => {
     const [ descriptionInput , setDescription ] = useState('')
     const [ priceInput , setPrice ] = useState('')
 
-    console.log(priceInput);
+    console.log(idUpdate);
 
     // Styles the Modal Box
     const style = {
@@ -55,13 +55,15 @@ const EditModal = ( { singleArt, open, onClose } ) => {
           })
     }
 
-
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch({ 
-            type: 'SAGA_POST_GALLERY',
+            type: 'SAGA_UPDATE_ART_INFO',
             payload:{
-
+                artId: idUpdate,
+                title: singleArt.title,
+                description: singleArt.description,
+                price: singleArt.price
             }
         });
         onClose(); 
