@@ -88,20 +88,23 @@ router.post('/', upload.single("file"), async (req, res) => {
 });
 
 /** ---------- GET INDIVIDUAL ART ROUTE ---------- **/
-router.get('/',  (req, res) => {
-  const userId = req.params.id;
-  
+router.get('/:id', rejectUnauthenticated,  (req, res) => {
+  const userId = req.user.id;
+  const artId = req.params.id;
+ 
   const sqlQuery = `
     SELECT 
-    "artPieces"."title",
-    "artPieces"."image",
-    "artPieces"."description",
-    "artPieces"."galleryStatus"
-      FROM "artPieces"
-        WHERE "artPieces"."id"=$1;
+      "artPieces"."title",
+      "artPieces"."image",
+      "artPieces"."description",
+      "artPieces"."price",
+      "artPieces"."galleryStatus"
+        FROM "artPieces"
+          WHERE "artPieces"."id"=$1 AND "artPieces"."userId" =$2;
     `
-  const sqlValues = [userId];
+  const sqlValues = [ artId, userId ];
   console.log(sqlQuery, sqlValues);
+
   pool.query(sqlQuery, sqlValues)
   .then((dbRes) => {
     res.send(dbRes.rows);

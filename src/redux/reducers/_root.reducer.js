@@ -6,6 +6,7 @@ import filterUnlistedArt from './filteredUnlisted.reducer';
 import filterUnsoldArt from './filterUnsoldList.reducer';
 import filteredActiveStatus from './filterActiveArt.reducer';
 import soldTables from './soldTables.reducer';
+import singleArtPiece from './singleInfo.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   filterUnlistedArt,
   filterUnsoldArt,
   filteredActiveStatus,
-  soldTables
+  soldTables,
+  singleArtPiece
   
 });
 
