@@ -15,6 +15,7 @@ const galleryLocationChangeDB = require('./routes/updateLocation.router')
 const soldStatusUpdate = require('./routes/updateSoldStatus.router')
 const getSoldTables = require('./routes/soldTable.router')
 const singleUpdateArt = require('./routes/singleUpdate.router')
+const pieceToDelete = require('./routes/singleDelete.router')
 
 
 
@@ -37,6 +38,8 @@ app.use('/updateListinginChildDB', galleryLocationChangeDB); // Updates the gall
 app.use('/updateSoldStatus', soldStatusUpdate); // Updates the soldStatus of an ArtPieces and the gallery it was sold in
 app.use('/getSoldTables', getSoldTables); 
 app.use('/updateIndividual', singleUpdateArt); 
+app.use('/deletePiece', pieceToDelete); 
+// deletePiece
 
 // Serve static files
 app.use(express.static('build'));

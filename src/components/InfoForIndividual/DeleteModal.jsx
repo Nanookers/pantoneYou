@@ -12,6 +12,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 const DeleteInfoModal = ( { singleArt, open, onClose, idToDelete } ) => {
 
     const dispatch = useDispatch();
+    
 
     // Styles the Modal Box
     const style = {
@@ -41,10 +42,13 @@ const DeleteInfoModal = ( { singleArt, open, onClose, idToDelete } ) => {
         onClose(); 
     }
     const handleDelete = (event) => {
-
+        dispatch({
+            type: 'DELETE_SINGLE',
+            payload: idToDelete
+        })
+        // push history back to the main gallery
     }
     const handleCancel = (event) => {
-
         onClose(); 
     }
 

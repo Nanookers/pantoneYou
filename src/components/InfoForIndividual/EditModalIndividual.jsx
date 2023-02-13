@@ -13,14 +13,6 @@ const EditModal = ( { singleArt, open, onClose, idUpdate } ) => {
 
     const dispatch = useDispatch();
 
-    console.log(singleArt);
-
-    const [ titleInput , setTitle ] = useState('')
-    const [ descriptionInput , setDescription ] = useState('')
-    const [ priceInput , setPrice ] = useState('')
-
-    console.log(idUpdate);
-
     // Styles the Modal Box
     const style = {
         position: 'absolute',
@@ -36,6 +28,7 @@ const EditModal = ( { singleArt, open, onClose, idUpdate } ) => {
         pb: 3,
     };
 
+    // dispatches to change state (just state)
     const setNewTitle = (event) => {
         dispatch({
             type: 'SET_NEW_TITLE',
@@ -55,6 +48,7 @@ const EditModal = ( { singleArt, open, onClose, idUpdate } ) => {
           })
     }
 
+    // Shipping dispatch of updated state to Saga
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch({ 
@@ -80,7 +74,7 @@ const EditModal = ( { singleArt, open, onClose, idUpdate } ) => {
         <form onSubmit={handleSubmit} >
 
             <Box sx={{ ...style, width: 500 }}>
-            <h2 id="child-modal-title">List at a Local Gallery</h2>
+            <h2 id="child-modal-title">Update</h2>
                 <TextField sx={{width: 500, height: 75 }} 
                     id="standard-basic" 
                         label="Title" 

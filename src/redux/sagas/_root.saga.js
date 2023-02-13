@@ -12,6 +12,7 @@ import fetchFilteredArtActive from './fetchActiveArt.saga';
 import fetchTableDates from './fetchTableDates.saga';
 import singleFetchArt from './singleArtFetch.saga';
 import singleEditArtSaga from './singleUpdateArt.saga';
+import singleItemDelete from './SingleDelete.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -34,6 +35,7 @@ export default function* rootSaga() {
     fetchFilteredArtActive(),
     fetchTableDates(),
     singleFetchArt(),
-    singleEditArtSaga()
+    singleEditArtSaga(),
+    singleItemDelete()
   ]);
 }
