@@ -25,11 +25,12 @@ function UserUpload() {
     setFileInput({ selectedFile: event.target.files[0] });
    
   };
+
+  
+
   const handleUpload = (event) =>{
     event.preventDefault();
-
-   console.log(fileInput.selectedFile)
-    // console.log('*********', fileInput)
+    
     console.log(fileInput, titleInput, priceInput, descriptionInput );
     dispatch({
       type: 'SAGA_ADD_NEW_ART',
@@ -40,6 +41,7 @@ function UserUpload() {
         description: descriptionInput
       }
     })
+
   }
     return (
       <div className="container">

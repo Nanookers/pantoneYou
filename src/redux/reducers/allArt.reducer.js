@@ -2,8 +2,8 @@
 const allArtReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_ART_REDUCER':
-            // ...state breaks it
-            return action.payload;
+            // ...action.payload pushes new create to the end of the state array. 
+            return [...state, ...action.payload];
         default: 
             return state;
     }
