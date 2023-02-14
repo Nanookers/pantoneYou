@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 
 import Box from '@mui/material/Box'
@@ -12,6 +13,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 const DeleteInfoModal = ( { singleArt, open, onClose, idToDelete } ) => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     
 
     // Styles the Modal Box
@@ -46,6 +48,7 @@ const DeleteInfoModal = ( { singleArt, open, onClose, idToDelete } ) => {
             type: 'DELETE_SINGLE',
             payload: idToDelete
         })
+        history.push('/info')
         // push history back to the main gallery
     }
     const handleCancel = (event) => {

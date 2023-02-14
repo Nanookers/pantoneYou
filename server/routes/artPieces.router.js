@@ -56,7 +56,7 @@ router.post('/', upload.single("file"), async (req, res) => {
         ("title", "image", "price", "description", "userId")
           VALUES
             ($1, $2, $3, $4, $5)
-          RETURNING "id";
+          RETURNING "id", "title", "price", "description", "userId", "image";
     `;
 
     const sqlValues = [title, imageAddress, price, description, user];

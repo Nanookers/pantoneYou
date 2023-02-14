@@ -11,14 +11,12 @@ function ConditionalGallery() {
     
     
 
-
-
     return (
-                <>
-                <UserUpload />
-                <InfoPage />      
-                </>
-            )
+        <>
+            <UserUpload />
+            <InfoPage />      
+        </>
+    )
     
 }
 

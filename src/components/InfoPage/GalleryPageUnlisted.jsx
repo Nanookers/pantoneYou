@@ -26,7 +26,7 @@ function GalleryPageUnlisted() {
             .map((art) => {
             return (
                 <CardIndividual art={art} key={art.id} />
-            );
+              );
             })
     }
     </div>
