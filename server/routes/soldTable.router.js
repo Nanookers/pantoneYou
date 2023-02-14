@@ -8,7 +8,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     
     const sqlQuery = `
-        SELECT "soldDate", "price", "title", "location"."galleryName"
+        SELECT "soldDate", "price", "title", "description", "location"."galleryName"
             FROM "artPieces"
             JOIN "location" on "location"."id" = "artPieces"."galleryLocation"
                 WHERE

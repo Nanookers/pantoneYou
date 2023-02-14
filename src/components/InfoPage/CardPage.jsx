@@ -25,6 +25,7 @@ function CardIndividual( {art} ){
     useEffect(() => {
         art.galleryStatus === true ? setDisableList(true) : setDisableList(false)
         art.galleryStatus === true ? setDisableUnlist(false) : setDisableUnlist(true)
+        art.soldStatus === true ? setDisablesold(true) : setDisablesold(false)
     }, []);
 
     // Send dispatch, and set state of the List buttons
