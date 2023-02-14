@@ -4,16 +4,21 @@ const router = express.Router();
 
 const { rejectUnauthenticated } = require('../modules/authentication-middleware')
 
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    
+    console.log(req.body);
+    const { dayBegin, monthBegin, yearBegin, dayEnd, monthEnd, yearEnd } = req.body;
+
+    const newMonthBegin = monthBegin < 12 ? monthBegin + 1 : monthBegin
+    const newMonthEnd = monthEnd < 12 ? monthEnd + 1 : monthEnd
+
     const sqlQuery = `
         SELECT "soldDate", "price", "title", "description", "location"."galleryName"
             FROM "artPieces"
             JOIN "location" on "location"."id" = "artPieces"."galleryLocation"
                 WHERE
-                    "soldDate" >= '2023-02-01'
-                AND "soldDate" <  '2023-02-28'
+                    "soldDate" >= '${yearBegin}-${newMonthBegin}-${dayBegin}'
+                AND "soldDate" <  '${yearEnd}-${newMonthEnd}-${dayEnd}'
                 AND "userId" = $1;
     `
     const sqlValues = [userId];

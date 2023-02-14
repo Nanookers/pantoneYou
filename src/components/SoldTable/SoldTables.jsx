@@ -33,8 +33,12 @@ function SoldTables() {
 
         const [value, setValue] = React.useState(dayjs());
         const [endValue, setEndValue] = React.useState(dayjs());
-        console.log(value,endValue);
+        // Values to Send in the Payload
 
+        const [dateOne, setDateOne] = React.useState(dayjs());
+        const [dateTwo, setDateTwo] = React.useState(dayjs());
+
+        // Set the date for the Start Day
         const handleChange = (newValue) => {
           setValue(newValue);
           const date = new Date(newValue)
@@ -42,18 +46,41 @@ function SoldTables() {
           const firstMonth = date.getMonth()
           const firstYear = date.getFullYear()
           console.log(firstDay, firstMonth, firstYear);
-          dispatch({
-            type: "SAGA_FETCH_DATES"
+          setDateOne({
+            firstDay,
+            firstMonth,
+            firstYear
           })
+          
         };
-        const handleEndChange = (newValue) => {
+        // Set the date for the End Day
+        const handleEndChange = async(newValue) => {
           setEndValue(newValue);
           const date = new Date(newValue)
-          const firstDay = date.getDate()
-          const firstMonth = date.getMonth()
-          const firstYear = date.getFullYear()
-          console.log(firstDay, firstMonth, firstYear);
+          const secondDay = date.getDate()
+          const secondMonth = date.getMonth()
+          const secondYear = date.getFullYear()
+          console.log(secondDay, secondMonth, secondYear);
+          
+          setDateTwo({
+            secondDay,
+            secondMonth,
+            secondYear
+          })
+          
+          dispatch({ 
+            type: 'SAGA_GET_TABLE_DATA',
+            payload: {
+              dateOne: dateOne,
+              dateTwo: {
+                secondDay,
+                secondMonth,
+                secondYear
+              }
+            }
+         });
         };
+        
 
         useEffect(() => {
             dispatch({ type: 'SAGA_GET_ART_ACTIVE' });
