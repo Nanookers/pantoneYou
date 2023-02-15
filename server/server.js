@@ -17,6 +17,7 @@ const getSoldTables = require('./routes/soldTable.router')
 const singleUpdateArt = require('./routes/singleUpdate.router')
 const pieceToDelete = require('./routes/singleDelete.router')
 const getLocations = require('./routes/getLocation.router')
+const updateExistingGallery = require('./routes/updateExistingLocation.router')
 
 
 
@@ -41,6 +42,7 @@ app.use('/getSoldTables', getSoldTables);
 app.use('/updateIndividual', singleUpdateArt); 
 app.use('/deletePiece', pieceToDelete);
 app.use('/getLocations', getLocations);
+app.use('/updateExistingLocation', updateExistingGallery);
 
 // Serve static files
 app.use(express.static('build'));

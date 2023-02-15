@@ -65,7 +65,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
     // Building Select Wheel inside of the Modal //
     // To select All Ready constructed Gallery Locations //
     const locations = useSelector((store) => store.locationReducer)
-    console.log(locations);
+    
 
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
@@ -107,6 +107,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
           type: 'SAGA_PUT_EXISTING_GALLERY',
           payload:{
             locationId: value,
+            id: art.id
           }
         }); 
         onClose()
