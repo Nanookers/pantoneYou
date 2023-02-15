@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     const sqlQuery = `
       SELECT "id",
              "galleryName"
-        FROM "artPieces"   
+        FROM "location"   
     `
     
     pool.query(sqlQuery)

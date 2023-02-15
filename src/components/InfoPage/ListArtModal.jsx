@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
@@ -15,6 +15,16 @@ const ListArtModal = ( { open, onClose, art } ) => {
     const [ commissionInput , setComission ] = useState('')
 
     const dispatch = useDispatch();
+
+    const locations = useSelector((store) => store.locationReducer)
+    console.log(locations);
+
+    useEffect(() => {
+      dispatch({
+        type: 'SAGA_GET_LOCATION'
+      })
+  }, []);
+
 
     // Styles the Modal Box
     const style = {
