@@ -34,9 +34,6 @@ const ListArtModal = ( { open, onClose, art } ) => {
 
     const dispatch = useDispatch();
 
-    const locations = useSelector((store) => store.locationReducer)
-    console.log(locations);
-
     useEffect(() => {
       dispatch({
         type: 'SAGA_GET_LOCATION'
@@ -67,16 +64,19 @@ const ListArtModal = ( { open, onClose, art } ) => {
 
     // Building Select Wheel inside of the Modal //
     // To select All Ready constructed Gallery Locations //
-      const ITEM_HEIGHT = 48;
-      const ITEM_PADDING_TOP = 8;
-      const MenuProps = {
-        PaperProps: {
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-          },
+    const locations = useSelector((store) => store.locationReducer)
+    console.log(locations);
+
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+          width: 250,
         },
-      };
+      },
+    };
 
       function getStyles(name, personName, theme) {
         return {
@@ -91,15 +91,26 @@ const ListArtModal = ( { open, onClose, art } ) => {
       const [personName, setPersonName] = React.useState([]);
     
       const handleSwitchChange = (event) => {
-        const {
-          target: { value },
-        } = event;
         setPersonName(
           // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
         );
-        console.log(value);
       };
+
+      const handleSelectedGallery = (event) =>{
+        event.preventDefault();
+        const {
+          target: { value },
+        } = event;
+
+        dispatch({ 
+          type: 'SAGA_PUT_EXISTING_GALLERY',
+          payload:{
+            locationId: value,
+          }
+        }); 
+        onClose()
+      }
 
 
     // Submitting a new Gallery for Listing //
@@ -114,7 +125,8 @@ const ListArtModal = ( { open, onClose, art } ) => {
                 artId: art.id
             }
         });
-        onClose(); 
+
+      onClose()
     }
     
   return (
@@ -144,7 +156,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
                     id="demo-multiple-name"
                     multiple
                     value={personName}
-                    onChange={handleChange}
+                    onChange={handleSelectedGallery}
                     input={<OutlinedInput label="Name" />}
                     MenuProps={MenuProps}
                   >
