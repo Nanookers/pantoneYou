@@ -16,7 +16,7 @@ function InfoPage() {
   
   // Render the Gallery based on which box is checked.
   const [renderAllState, setGalleryState] = useState({
-    all: true,
+    all: false,
     unListed: false,
     unsold: false,
     activePieces: false,
@@ -32,16 +32,8 @@ function InfoPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getArtInfo()
+    
   }, []);
-
-  const getArtInfo = () => {
-    dispatch({ type: 'SAGA_GET_ART' });
-    dispatch({ type: 'SAGA_GET_ART_UNLISTED' });
-    dispatch({type: 'SAGA_GET_ART_UNSOLD'});
-    dispatch({type: 'SAGA_GET_ART_ACTIVE'});
-  }
-  
 
   // Handles the toggle for All Features. 
   const handleToggleAll = () => {
@@ -52,6 +44,7 @@ function InfoPage() {
       unsold: false,
       activePieces: false
     }))
+    dispatch({ type: 'SAGA_GET_ART' });
   };
   
   // Handles the toggle for Unlisted Art
@@ -63,6 +56,7 @@ function InfoPage() {
       unsold: false,
       activePieces: false
     }))
+    dispatch({ type: 'SAGA_GET_ART_UNLISTED' });
   };
 
   // Handles the toggle for unsold Art
@@ -75,6 +69,7 @@ function InfoPage() {
       unsold: !prevState.unsold,
       activePieces: false
     }))
+    dispatch({type: 'SAGA_GET_ART_UNSOLD'});
   };
 
   // Handles the toggle for Active art
@@ -87,6 +82,8 @@ function InfoPage() {
       unsold: false,
       activePieces: !prevState.unsold,
     }))
+
+    dispatch({type: 'SAGA_GET_ART_ACTIVE'});
   };
   
   return (

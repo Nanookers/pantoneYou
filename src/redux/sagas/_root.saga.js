@@ -9,7 +9,6 @@ import updateSoldStatus from './updateSold.saga';
 import fetchFilteredArtUnlisted from './fetchFilteredArt.saga';
 import fetchUnsoldList from './fetchUnsoldList.saga';
 import fetchFilteredArtActive from './fetchActiveArt.saga';
-import fetchTableDates from './fetchTableDates.saga';
 import singleFetchArt from './singleArtFetch.saga';
 import singleEditArtSaga from './singleUpdateArt.saga';
 import singleItemDelete from './SingleDelete.saga';
@@ -34,7 +33,6 @@ export default function* rootSaga() {
     fetchFilteredArtUnlisted(),
     fetchUnsoldList(),
     fetchFilteredArtActive(),
-    fetchTableDates(),
     singleFetchArt(),
     singleEditArtSaga(),
     singleItemDelete(),

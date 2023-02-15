@@ -8,6 +8,9 @@ function* tableDataFetch() {
 function* getTableData(action){
     try {
         console.log(action.payload);
+        // create single object to POST, Fetch neccessary data 
+        // The Response is using a SELECT FROM, and is sent to 
+        // The reducer that populates the fetched Data
         const newPayload = {
             dayBegin: action.payload.dateOne.firstDay,
             monthBegin: action.payload.dateOne.firstMonth,
@@ -19,7 +22,7 @@ function* getTableData(action){
         console.log(newPayload);
         const response = yield axios.post('/getSoldTables', newPayload );
         console.log(response.data)
-        // yield put({ type: 'SET_ACTIVE_FILTER_REDUCER', payload: response.data });
+        yield put({ type: 'SET_TABLES_REDUCER', payload: response.data });
 
     }catch (error) {
         console.error('Error fetching art pieces:', error);

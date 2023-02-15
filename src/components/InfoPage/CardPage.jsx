@@ -96,7 +96,7 @@ function CardIndividual( {art} ){
                             
                             <Button onClick={handleUnlist} disabled={disableUnlist}>Unlist</Button>
 
-                        <ListArtModal open={open} onClose={() => setOpen(false)} art={art}/>
+                        <ListArtModal open={open} onClose={() => setOpen(false)} art={art}  />
                     </ButtonGroup>
                 </CardActions>
             </Card>

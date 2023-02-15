@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box'
@@ -16,7 +16,6 @@ const ListArtModal = ( { open, onClose, art } ) => {
 
     const dispatch = useDispatch();
 
-    console.log(nameInput, addressInput, commissionInput);
     // Styles the Modal Box
     const style = {
         position: 'absolute',
@@ -45,7 +44,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
         });
         onClose(); 
     }
-
+    
   return (
     <Modal
         hideBackdrop

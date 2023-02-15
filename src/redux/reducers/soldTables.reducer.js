@@ -2,9 +2,8 @@
 // DO I NEED THIS REDUCER? CHECK LATER! //
 const soldTables = (state = [], action) => {
     switch (action.type) {
-        case 'SET_ACTIVE_FILTER_REDUCER':
-            const newPayload = action.payload.filter(art => art.soldStatus === true);
-            return  action.payload;
+        case 'SET_TABLES_REDUCER':
+            return action.payload;
         default: 
             return state;
     }

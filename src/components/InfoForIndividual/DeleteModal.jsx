@@ -43,12 +43,12 @@ const DeleteInfoModal = ( { singleArt, open, onClose, idToDelete } ) => {
         });
         onClose(); 
     }
-    const handleDelete = (event) => {
+    const handleDelete = () => {
         dispatch({
             type: 'DELETE_SINGLE',
             payload: idToDelete
         })
-        history.push('/info')
+        history.push(`/info`)
         // push history back to the main gallery
     }
     const handleCancel = (event) => {
