@@ -5,6 +5,7 @@ import allArtReducer from './allArt.reducer';
 import soldTables from './soldTables.reducer';
 import singleArtPiece from './singleInfo.reducer';
 import locationReducer from './setLocations.reducer';
+import soldCounterReducer from './getCount.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   allArtReducer, 
   soldTables,
   singleArtPiece,
-  locationReducer
+  locationReducer,
+  soldCounterReducer
   
 });
 

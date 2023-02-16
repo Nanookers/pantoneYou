@@ -24,9 +24,8 @@ function SoldTables() {
         // soldTable Generator Begins //
         const dispatch = useDispatch(); 
         const soldTables = useSelector((store) => store.soldTables)
-
-        console.log(soldTables);
-
+        const soldCounter = useSelector((store) => store.soldCounterReducer)
+        console.log(soldCounter);
         const sumOfSold = soldTables.reduce((accumulator, artPiece) => accumulator + Number(artPiece.price), 0);
         console.log(sumOfSold);
         // soldTable Generator Ends //
@@ -80,14 +79,28 @@ function SoldTables() {
             }
          });
         };
-        
 
         useEffect(() => {
-            dispatch({ type: 'SAGA_GET_ART_ACTIVE' });
-          }, []);
-      
+          dispatch({
+            type: 'SAGA_GET_SOLD_COUNT'
+          })
+        }, []);
+        
         return (
           <>
+          <div className="counterTotal">
+            <h1>Top Three Galleries</h1>
+            {
+              soldCounter
+                .sort((low, high) => high.count - low.count)
+                .slice(0,3)
+                .map((count) => (
+                  <p key={count.galleryName}>
+                    {count.galleryName} has sold: {count.count}
+                  </p>
+                ))
+            }
+          </div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack spacing={3}>
               <DesktopDatePicker
@@ -122,6 +135,7 @@ function SoldTables() {
                 <TableRow
                   key={artSold.title}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  
                 >
                   <TableCell component="th" scope="row">
                     {artSold.title}

@@ -13,7 +13,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     const newMonthEnd = monthEnd < 12 ? monthEnd + 1 : monthEnd
 
     const sqlQuery = `
-        SELECT "soldDate", "price", "title", "description", "location"."galleryName"
+        SELECT "soldDate", "price", "title", "description", "location"."galleryName", "location"."id"
             FROM "artPieces"
             JOIN "location" on "location"."id" = "artPieces"."galleryLocation"
                 WHERE
