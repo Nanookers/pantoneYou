@@ -107,7 +107,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
           type: 'SAGA_PUT_EXISTING_GALLERY',
           payload:{
             locationId: value,
-            id: art.id
+            id: art.id,
           }
         }); 
         onClose()
@@ -144,8 +144,8 @@ const ListArtModal = ( { open, onClose, art } ) => {
           <TabContext value={tabValue}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <TabList onChange={handleChange} aria-label="lab API tabs example">
-                <Tab label="New Gallery" value="1" />
-                <Tab label="Select Gallery" value="2" />
+                <Tab label="Select Gallery" value="1" />
+                <Tab label="New Gallery" value="2" />
 
               </TabList>
             </Box>

@@ -19,7 +19,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
                 WHERE
                     "soldDate" >= '${yearBegin}-${newMonthBegin}-${dayBegin}'
                 AND "soldDate" <=   '${yearEnd}-${newMonthEnd}-${Number(dayEnd)+1}'
-                OR "soldDate" <=   '${yearEnd}-${Number(newMonthEnd)+1}-${1}'
                 AND "userId" = $1;
     `
     const sqlValues = [userId];

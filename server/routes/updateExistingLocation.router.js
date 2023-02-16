@@ -10,7 +10,8 @@ router.put( '/', async (req, res) => {
         const artId = req.body.artId
         const sqlText =`
                 UPDATE "artPieces"
-                    SET "galleryLocation" = $1
+                    SET "galleryLocation" = $1,
+                        "galleryStatus" = true
                         WHERE "id" = $2;
         `
         const sqlValues = [ locationUpdate, artId ]

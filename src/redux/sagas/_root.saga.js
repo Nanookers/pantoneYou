@@ -6,9 +6,6 @@ import fetchArtSaga from './getAllArt.saga';
 import uploadArtSaga from './addArtSaga.saga';
 import addGalleryLocation from './addPostGallery.saga';
 import updateSoldStatus from './updateSold.saga';
-import fetchFilteredArtUnlisted from './fetchFilteredArt.saga';
-import fetchUnsoldList from './fetchUnsoldList.saga';
-import fetchFilteredArtActive from './fetchActiveArt.saga';
 import singleFetchArt from './singleArtFetch.saga';
 import singleEditArtSaga from './singleUpdateArt.saga';
 import singleItemDelete from './SingleDelete.saga';
@@ -32,9 +29,6 @@ export default function* rootSaga() {
     uploadArtSaga(),
     addGalleryLocation(),
     updateSoldStatus(),
-    fetchFilteredArtUnlisted(),
-    fetchUnsoldList(),
-    fetchFilteredArtActive(),
     singleFetchArt(),
     singleEditArtSaga(),
     singleItemDelete(),

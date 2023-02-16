@@ -2,9 +2,6 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import allArtReducer from './allArt.reducer';
-import filterUnlistedArt from './filteredUnlisted.reducer';
-import filterUnsoldArt from './filterUnsoldList.reducer';
-import filteredActiveStatus from './filterActiveArt.reducer';
 import soldTables from './soldTables.reducer';
 import singleArtPiece from './singleInfo.reducer';
 import locationReducer from './setLocations.reducer';
@@ -19,9 +16,6 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
   allArtReducer, 
-  filterUnlistedArt,
-  filterUnsoldArt,
-  filteredActiveStatus,
   soldTables,
   singleArtPiece,
   locationReducer
