@@ -15,6 +15,7 @@ function* newLocation(action){
         console.log(newPayload);
         const response = yield axios.put('/updateExistingLocation', newPayload);
         yield put({ type: 'SET_ART_REDUCER', payload: response.data });
+        
     }catch(error){
         console.error('error in location update EXISTING location:', error);
     }

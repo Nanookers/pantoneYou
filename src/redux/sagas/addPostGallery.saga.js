@@ -37,6 +37,8 @@ function* unListGallery(action){
       artId: action.payload.artId,
       activeStatus: 'false'
     })
+    yield put({ type: 'SET_UPDATE_REDUCER', payload: response.data });
+    console.log(response.data);
   }catch (error) {
     console.log('could not find', error);
   }

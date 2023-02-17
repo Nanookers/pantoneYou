@@ -15,10 +15,13 @@ router.put('/', async (req, res) => {
             UPDATE "artPieces"
                 SET "galleryLocation" = $1,
                     "galleryStatus" = $3
-                        WHERE "id" = $2;
+                        WHERE "id" = $2
+                            RETURNING "galleryStatus", "title", "image", "description";
+
         `
         const sqlValues = [ locationId, artId, activeStatus ]
         const dbRes = await pool.query(sqlText, sqlValues);
+        res.send(dbRes.rows)
     }catch (err) {
         console.error('Error in PUT Gallery Location', err);
         res.status(500).json({ status: "failure", message: err });

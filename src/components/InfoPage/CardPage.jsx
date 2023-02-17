@@ -82,6 +82,9 @@ function CardIndividual( {art} ){
                     <Typography variant="body2" color="text.secondary">
                         {art.description}
                     </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {art.galleryName}
+                    </Typography>
                     <CardMedia onClick={detailViewClick} sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}>
                         <div className="imageSize"> <img src={art.image} /> </div>
                     </CardMedia>

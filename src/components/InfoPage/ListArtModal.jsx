@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // Used for Modal
 import Box from '@mui/material/Box'
@@ -33,6 +34,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
     const [ commissionInput , setComission ] = useState('')
 
     const dispatch = useDispatch();
+    const history = useHistory()
 
     useEffect(() => {
       dispatch({
@@ -110,6 +112,8 @@ const ListArtModal = ( { open, onClose, art } ) => {
             id: art.id,
           }
         }); 
+        
+        history.push('/info')
         onClose()
       }
 

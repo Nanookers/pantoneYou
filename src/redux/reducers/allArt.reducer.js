@@ -6,6 +6,8 @@ const allArtReducer = (state = [], action) => {
             return [...state, ...action.payload];
         case 'SAGA_CLEAR_ART':
             return [];
+        case 'SET_UPDATE_REDUCER':
+            return [...action.payload];
         default: 
             return state;
     }
