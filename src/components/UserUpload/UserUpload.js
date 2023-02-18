@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+
 
 
 function UserUpload() {
@@ -39,36 +43,33 @@ function UserUpload() {
         price: priceInput,
         description: descriptionInput
       }
-    })
 
+    })
+    setFileInput('')
+    setTitleInput('')
+    setPriceInput(0)
+    setdescriptionInput('')
   }
     return (
       <div className="container">
-        <p>UplaodPage</p>
-        <form onSubmit={handleUpload}>
+          <form onSubmit={handleUpload}>
+            <TextField id="standard-basic" label="Title" 
+              variant="standard" type="text"  value={titleInput} 
+                onChange={(event) => setTitleInput(event.target.value)}/>
 
-          <input type="file" 
-            placeholder='Upload File' 
-                onChange={onFileChange}
-          />
-          <input type="text" 
-            placeholder='Title'
-                value={titleInput}
-                    onChange={(event) => setTitleInput(event.target.value)}
-          />
-          <input type="number" 
-            placeholder='Price' 
-                 value={priceInput}
-                    onChange={(event) => setPriceInput(event.target.value)}
-          />
-          <input type="text" 
-            placeholder='Description'
-                value={descriptionInput} 
-                    onChange={(event) => setdescriptionInput(event.target.value)}
-          />
+            <TextField id="standard-basic" label="Price" 
+              variant="standard" type="number"  value={priceInput === 0 ? '' : priceInput} 
+                onChange={(event) => setPriceInput(event.target.value)} />
 
-          <button type='submit'>Submit</button>
-        </form>
+            <TextField id="standard-basic" label="Description" 
+              variant="standard" type="text"  value={descriptionInput}  
+                onChange={(event) => setdescriptionInput(event.target.value)} />
+
+            <Button variant="contained" component="label" onChange={onFileChange}>
+                Upload File <input type="file" hidden />
+            </Button>
+            <Button variant="contained" type='submit'>Submit</Button>
+          </form>
         
       </div>
     );

@@ -9,7 +9,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   
   const sqlQuery = `
     SELECT * FROM "artPieces"
-      WHERE "userId"=$1;
+      LEFT JOIN "location" ON "artPieces"."galleryLocation" = "location"."id"
+        WHERE "userId"=$1;
   `
   const sqlValues = [userId];
   pool.query(sqlQuery, sqlValues)

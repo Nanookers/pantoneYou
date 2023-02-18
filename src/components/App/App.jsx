@@ -15,7 +15,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import ConditionalGallery from '../ConditionalGallery/ConditionalGallery';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -24,6 +23,7 @@ import SoldTables from '../SoldTable/SoldTables';
 import InfoIndividual from '../InfoForIndividual/InfoIndividual';
 
 import './App.css';
+import InfoPage from '../InfoPage/InfoPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ function App() {
             exact
             path="/info"
           >
-            <ConditionalGallery />
+            <InfoPage />
           </ProtectedRoute>
 
           <ProtectedRoute

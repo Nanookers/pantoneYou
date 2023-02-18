@@ -2,11 +2,11 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CardIndividual from './CardPage';
+import UserUpload from '../UserUpload/UserUpload'
 import './InfoPage.css'
 // For Tabs 
-import Tabs from '@mui/material/Tabs';
+import Grid from '@mui/material/Grid';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
@@ -32,9 +32,12 @@ function InfoPage() {
   
   return (
     <>
-     <TabContext value={tabValue}>
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <UserUpload />
+    </Box>
+      <TabContext value={tabValue}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <TabList onChange={handleChange} aria-label="lab API tabs example" centered>
                 <Tab label="All Artwork" value="1" />
                 <Tab label="Art In Galleries" value="2" />
                 <Tab label="Unsold Artwork" value="3" />
@@ -42,35 +45,58 @@ function InfoPage() {
               </TabList>
             </Box>
             <TabPanel value="1">
+            <Grid container spacing={2}>
               {
                 allArt.map((art) => {
-                  return (<CardIndividual art={art} key={art.id} />)  
+                  return (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={art.id}>
+                  <CardIndividual art={art} key={art.id} />
+                </Grid>
+                  )   
                 })
               }
+            </Grid>
             </TabPanel>
             <TabPanel value="2">
+          <Grid container spacing={2}>
             {
               allArt
                 .filter((art) => art.galleryStatus === true) 
-                .map((art) => <CardIndividual art={art} key={art.id} />) 
+                .map((art) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={art.id}>
+                    <CardIndividual art={art} />
+                  </Grid>
+                )) 
             }
-              
-            </TabPanel>
-            <TabPanel value="3">
+          </Grid>
+        </TabPanel>
+        <TabPanel value="3">
+          <Grid container spacing={2}>
             {
               allArt
                 .filter((art) => art.soldStatus === false) 
-                .map((art) => <CardIndividual art={art} key={art.id} />) 
+                .map((art) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={art.id}>
+                    <CardIndividual art={art} />
+                  </Grid>
+                )) 
             }
-            </TabPanel>
-            <TabPanel value="4">
+          </Grid>
+        </TabPanel>
+        <TabPanel value="4">
+          <Grid container spacing={2}>
             {
               allArt
                 .filter((art) => art.galleryStatus === false) 
-                .map((art) => <CardIndividual art={art} key={art.id} />) 
+                .map((art) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={art.id}>
+                    <CardIndividual art={art} />
+                  </Grid>
+                )) 
             }
-            </TabPanel>
-          </TabContext>
+          </Grid>
+        </TabPanel>
+      </TabContext>
     </>
   );
 }

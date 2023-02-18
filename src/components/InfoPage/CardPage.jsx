@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ListArtModal from './ListArtModal';
+import SoldArtModal from './SoldArtModal';
+import UnlistArt from './UnlistArt';
 import './CardPage.css';
 
 import Button from '@mui/material/Button'
@@ -16,6 +18,9 @@ import Card from '@mui/material/Card';
 function CardIndividual( {art} ){
     
     const[ open, setOpen ] = useState(false) //for opening the modal
+    const[ openSold, setOpenSold ] = useState(false) //for opening the modal
+    const[ openUnlist, setOpenUnlist ] = useState(false) //for opening the modal
+
     const [disableList, setDisableList] = useState(false); 
     const [disableSold, setDisablesold] = useState(false); 
     const [disableUnlist, setDisableUnlist] = useState(false); 
@@ -33,34 +38,18 @@ function CardIndividual( {art} ){
         // Sets the open state to true, it is passed through the 
         // compnent as a prop so it can be turned.
         event.preventDefault()
-        setDisableList(!disableList);
-        setDisableUnlist(!disableUnlist)
         setOpen(true)
     }
     // Send dispatch, and set state of the Sold buttons
     const handleSold = (event) => {
         event.preventDefault()
-        // art.galleryLocation is clicking a number
-        dispatch({
-            type: 'SAGA_PUT_SOLD_STATUS',
-            payload: {
-                artId: art.id,
-                locationSold: art.galleryLocation
-            }
-        })
-        setDisablesold(!disableSold)
+        setOpenSold(true)
+        
     }
     // Send dispatch, and set state of the UnList button
     const handleUnlist = (event) => {
         event.preventDefault();
-        dispatch({ 
-            type: 'SAGA_UNLIST_FROM_GALLERY',
-            payload:{
-                galleryLocation: null,
-                artId: art.id
-            }
-        });
-        setDisableUnlist(!disableUnlist)
+        setOpenUnlist(true)
         setDisableList(!disableList);
     }
 
@@ -74,32 +63,34 @@ function CardIndividual( {art} ){
     return (
         <>
         <div key={art.id}>
-            <Card sx={{ maxWidth: 400, maxHeight: 510 }}>
+            <Card sx={{ maxWidth: 400, maxHeight: 500 }}>
+                    <CardMedia 
+                        onClick={detailViewClick} 
+                            sx={{ maxWidth: 400, maxHeight: 300}}
+                                component="img"
+                                    img src={art.image}/>
                 <CardContent>
-                    <Typography variant="h4" component="div">
+                    <Typography variant="h4" component="div" noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {art.title} 
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {art.description}
+
+                    <Typography variant="body2" color="text.secondary" noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        { art.galleryStatus === true ? art.galleryName : art.description }
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {art.galleryName}
-                    </Typography>
-                    <CardMedia onClick={detailViewClick} sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}>
-                        <div className="imageSize"> <img src={art.image} /> </div>
-                    </CardMedia>
                 </CardContent>
                 <CardActions>
                     <ButtonGroup
                         fullWidth={true}>
                             {/* disabled works with setState to immediately render the button change the ternary keeps the state on reload */}
-                            <Button onClick={handleListClick} disabled={disableList}>List</Button>
+                        <Button onClick={handleListClick} disabled={disableList}>List</Button>
 
-                            <Button onClick={handleSold} disabled={disableSold}>Sold</Button>
+                        <Button onClick={handleSold} disabled={disableSold}>Sold</Button>
                             
-                            <Button onClick={handleUnlist} disabled={disableUnlist}>Unlist</Button>
+                        <Button onClick={handleUnlist} disabled={disableUnlist}>Unlist</Button>
 
                         <ListArtModal open={open} onClose={() => setOpen(false)} art={art}  />
+                        <SoldArtModal open={openSold} onClose={() => setOpenSold(false)} art={art}  />
+                        <UnlistArt open={openUnlist} onClose={() => setOpenUnlist(false)} art={art}  />
                     </ButtonGroup>
                 </CardActions>
             </Card>
