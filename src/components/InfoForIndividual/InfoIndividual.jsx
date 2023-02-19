@@ -13,6 +13,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
 import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
 
 const InfoIndividual = () => {
 
@@ -46,7 +47,14 @@ const InfoIndividual = () => {
   return (
     <>
       <div className="individualArtCard">
-        {<img src={singleArt.image}/>}
+      <Card sx={{ display: 'flex' }}> 
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <CardMedia
+            component="img"
+            image={singleArt.image} />
+        </Box>
+      </Card>
+        {/* {<img src={singleArt.image}/>} */}
         {<p>{singleArt.title}</p>}
         {<p>{singleArt.description}</p>}
         {<p>{singleArt.price}</p>}

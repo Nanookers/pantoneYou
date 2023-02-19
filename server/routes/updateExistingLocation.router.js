@@ -11,8 +11,9 @@ router.put( '/', async (req, res) => {
         const sqlText =`
                 UPDATE "artPieces"
                     SET "galleryLocation" = $1,
-                        "galleryStatus" = true
-                        WHERE "id" = $2;
+                        "galleryStatus" = true  
+                        WHERE "id" = $2
+                        RETURNING *;
         `
         const sqlValues = [ locationUpdate, artId ]
         const dbRes = await pool.query(sqlText, sqlValues);

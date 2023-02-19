@@ -62,20 +62,23 @@ function CardIndividual( {art} ){
     
     return (
         <>
-        <div key={art.id}>
+        <div class="cardForEffect" key={art.id}>
             <Card sx={{ maxWidth: 400, maxHeight: 500 }}>
                     <CardMedia 
                         onClick={detailViewClick} 
                             sx={{ maxWidth: 400, maxHeight: 300}}
                                 component="img"
-                                    img src={art.image}/>
+                                    image={art.image} />
                 <CardContent>
-                    <Typography variant="h4" component="div" noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <Typography variant="h4" component="div" 
+                        noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {art.title} 
                     </Typography>
 
-                    <Typography variant="body2" color="text.secondary" noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        { art.galleryStatus === true ? art.galleryName : art.description }
+                    <Typography variant="h7" color="text.secondary" 
+                        noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            { art.galleryStatus === true ? <span className="active">● </span> : <span className="inactive">● </span>} 
+                                { art.galleryStatus === true ? art.galleryName : 'Unlisted' }
                     </Typography>
                 </CardContent>
                 <CardActions>

@@ -10,11 +10,14 @@ function* newLocation(action){
         console.log(action.payload.locationId[0]);
         const newPayload = {
             locationId: action.payload.locationId[0],
-            artId: action.payload.id
+            artId: action.payload.id,
         }
         console.log(newPayload);
+        
         const response = yield axios.put('/updateExistingLocation', newPayload);
-        yield put({ type: 'SET_ART_REDUCER', payload: response.data });
+        const getResponse = yield axios.get('/artPieces');
+        yield put({ type: 'SET_ART_REDUCER', payload: getResponse.data });
+        
         
     }catch(error){
         console.error('error in location update EXISTING location:', error);

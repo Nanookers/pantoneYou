@@ -130,7 +130,7 @@ const ListArtModal = ( { open, onClose, art } ) => {
                 artId: art.id
             }
         });
-
+      history.push('/info')
       onClose()
     }
     

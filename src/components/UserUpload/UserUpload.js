@@ -51,27 +51,22 @@ function UserUpload() {
     setdescriptionInput('')
   }
     return (
-      <div className="container">
-          <form onSubmit={handleUpload}>
-            <TextField id="standard-basic" label="Title" 
-              variant="standard" type="text"  value={titleInput} 
-                onChange={(event) => setTitleInput(event.target.value)}/>
+<div className="container">
+  <form onSubmit={handleUpload} style={{ display: 'flex', alignItems: 'center' }}>
+    <TextField id="standard-basic-1" label="Title" variant="standard" type="text" value={titleInput} onChange={(event) => setTitleInput(event.target.value)} style={{ marginRight: '16px', flex: 1 }} />
 
-            <TextField id="standard-basic" label="Price" 
-              variant="standard" type="number"  value={priceInput === 0 ? '' : priceInput} 
-                onChange={(event) => setPriceInput(event.target.value)} />
+    <TextField id="standard-basic-2" label="Price" variant="standard" type="number" value={priceInput === 0 ? '' : priceInput} onChange={(event) => setPriceInput(event.target.value)} style={{ marginRight: '16px', width: '120px' }} />
 
-            <TextField id="standard-basic" label="Description" 
-              variant="standard" type="text"  value={descriptionInput}  
-                onChange={(event) => setdescriptionInput(event.target.value)} />
+    <TextField id="standard-basic-3" label="Description" variant="standard" type="text" value={descriptionInput} onChange={(event) => setdescriptionInput(event.target.value)} style={{ marginRight: '16px', flex: 1 }} />
 
-            <Button variant="contained" component="label" onChange={onFileChange}>
-                Upload File <input type="file" hidden />
-            </Button>
-            <Button variant="contained" type='submit'>Submit</Button>
-          </form>
-        
-      </div>
+    <Button variant="contained" component="label" onChange={onFileChange} style={{ marginRight: '7px' }}>
+      Upload File <input type="file" hidden />
+    </Button>
+    
+    <Button variant="contained" type='submit'>Submit</Button>
+  </form>
+</div>
+
     );
   }
 

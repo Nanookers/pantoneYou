@@ -13,6 +13,8 @@ function* sendUpdateSold(action){
         artId: action.payload.artId,
         locationSold: action.payload.locationSold
       })
+      const getResponse = yield axios.get('/artPieces');
+      yield put({ type: 'SET_ART_REDUCER', payload: getResponse.data });
     }catch (error) {
       console.log('could not find', error);
     }

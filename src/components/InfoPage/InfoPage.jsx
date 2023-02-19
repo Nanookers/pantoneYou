@@ -45,7 +45,7 @@ function InfoPage() {
               </TabList>
             </Box>
             <TabPanel value="1">
-            <Grid container spacing={2}>
+            <Grid container spacing={4}>
               {
                 allArt.map((art) => {
                   return (
@@ -58,39 +58,39 @@ function InfoPage() {
             </Grid>
             </TabPanel>
             <TabPanel value="2">
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             {
               allArt
                 .filter((art) => art.galleryStatus === true) 
                 .map((art) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} key={art.id}>
-                    <CardIndividual art={art} />
+                    <CardIndividual art={art} key={art.id} />
                   </Grid>
                 )) 
             }
           </Grid>
         </TabPanel>
         <TabPanel value="3">
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             {
               allArt
                 .filter((art) => art.soldStatus === false) 
                 .map((art) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} key={art.id}>
-                    <CardIndividual art={art} />
+                    <CardIndividual art={art} key={art.id} />
                   </Grid>
                 )) 
             }
           </Grid>
         </TabPanel>
         <TabPanel value="4">
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             {
               allArt
                 .filter((art) => art.galleryStatus === false) 
                 .map((art) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} key={art.id}>
-                    <CardIndividual art={art} />
+                    <CardIndividual art={art} key={art.id} />
                   </Grid>
                 )) 
             }

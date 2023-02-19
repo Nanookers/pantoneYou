@@ -15,8 +15,7 @@ router.put('/', async (req, res) => {
             UPDATE "artPieces"
                 SET "galleryLocation" = $1,
                     "galleryStatus" = $3
-                        WHERE "id" = $2
-                            RETURNING "galleryStatus", "title", "image", "description";
+                        WHERE "id" = $2;
 
         `
         const sqlValues = [ locationId, artId, activeStatus ]

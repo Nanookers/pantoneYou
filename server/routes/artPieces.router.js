@@ -7,10 +7,15 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   
+  // COALESCE RETURNS EMPTY STRINGS IN PLACE OF NULL VALUES. THIS ALLOWS YOU TO RETURN THE LOCATION EVEN IF THEY ARE NULL IN THE LOCATION TABLE
   const sqlQuery = `
-    SELECT * FROM "artPieces"
-      LEFT JOIN "location" ON "artPieces"."galleryLocation" = "location"."id"
-        WHERE "userId"=$1;
+  SELECT "artPieces"."id", "title", "price", "description", "userId", "image", 
+    "galleryLocation", "galleryStatus", "soldStatus", "soldDate", 
+      COALESCE("location"."galleryName", '') AS "galleryName", 
+      COALESCE("location"."galleryAddress", '') AS "galleryAddress"
+        FROM "artPieces"
+          LEFT JOIN "location" ON "artPieces"."galleryLocation" = "location"."id"
+            WHERE "userId"=$1;
   `
   const sqlValues = [userId];
   pool.query(sqlQuery, sqlValues)

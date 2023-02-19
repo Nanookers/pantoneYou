@@ -24,6 +24,10 @@ function* addGallery(action) {
         artId: action.payload.artId,
         activeStatus : 'true'
       });
+      // Get Response ensures immediate update of the DOM
+      const getResponse = yield axios.get('/artPieces');
+      yield put({ type: 'SET_ART_REDUCER', payload: getResponse.data });
+
     } catch (error) {
       console.log('could not find', error);
     }
@@ -37,7 +41,8 @@ function* unListGallery(action){
       artId: action.payload.artId,
       activeStatus: 'false'
     })
-    yield put({ type: 'SET_UPDATE_REDUCER', payload: response.data });
+    const getResponse = yield axios.get('/artPieces');
+    yield put({ type: 'SET_ART_REDUCER', payload: getResponse.data });
     console.log(response.data);
   }catch (error) {
     console.log('could not find', error);

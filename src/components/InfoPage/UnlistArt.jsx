@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // Modal
@@ -36,9 +37,9 @@ const UnlistArt = ({ art, open, onClose }) => {
                 artId: art.id
             }
         });
-        history.push(`/info`)
         onClose(); 
     }
+    
     
   return (
     <Modal
