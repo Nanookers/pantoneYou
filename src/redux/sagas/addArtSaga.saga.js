@@ -20,10 +20,8 @@ function* addArtSaga(action){
             }
         });
 
-        yield put({
-            type: 'SET_ART_REDUCER',
-            payload: response.data
-        });
+        const getResponse = yield axios.get('/artPieces');
+        yield put({ type: 'SET_ART_REDUCER', payload: getResponse.data });
         
     } catch (error) {
         console.log('could not find', error);

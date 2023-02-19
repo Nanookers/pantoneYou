@@ -99,13 +99,12 @@ router.get('/:id', rejectUnauthenticated,  (req, res) => {
   const artId = req.params.id;
  
   const sqlQuery = `
-    SELECT 
-      "artPieces"."title",
-      "artPieces"."image",
-      "artPieces"."description",
-      "artPieces"."price",
-      "artPieces"."galleryStatus"
+  SELECT "artPieces"."id", "title", "price", "description", "userId", "image", 
+    "galleryLocation", "galleryStatus", "soldStatus", "soldDate", 
+      COALESCE("location"."galleryName", '') AS "galleryName", 
+      COALESCE("location"."galleryAddress", '') AS "galleryAddress"
         FROM "artPieces"
+          LEFT JOIN "location" ON "artPieces"."galleryLocation" = "location"."id"
           WHERE "artPieces"."id"=$1 AND "artPieces"."userId" =$2;
     `
   const sqlValues = [ artId, userId ];

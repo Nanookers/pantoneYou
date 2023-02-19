@@ -59,11 +59,11 @@ function UserUpload() {
 
     <TextField id="standard-basic-3" label="Description" variant="standard" type="text" value={descriptionInput} onChange={(event) => setdescriptionInput(event.target.value)} style={{ marginRight: '16px', flex: 1 }} />
 
-    <Button variant="contained" component="label" onChange={onFileChange} style={{ marginRight: '7px' }}>
+    <Button variant="contained" component="label" onChange={onFileChange}   
+      sx={{ color: 'beige', backgroundColor: '#BE3455' }} style={{ marginRight: '7px' }}>
       Upload File <input type="file" hidden />
     </Button>
-    
-    <Button variant="contained" type='submit'>Submit</Button>
+    <Button variant="contained" type='submit' sx={{ color: 'beige', backgroundColor: '#BE3455' }}>Submit</Button>
   </form>
 </div>
 

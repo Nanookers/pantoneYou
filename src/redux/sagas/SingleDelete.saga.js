@@ -10,7 +10,9 @@ function* singleDelete(action){
         console.log(action.payload);
         const response = yield axios.delete(`/deletePiece/${action.payload}`,{
         });
-        yield put({ type: 'SET_ART_REDUCER', payload: response.data });
+        const getResponse = yield axios.get('/artPieces');
+        yield put({ type: 'SET_ART_REDUCER', payload: getResponse.data });
+        
 
     }catch (error) {
         console.error('Error fetching art pieces:', error);

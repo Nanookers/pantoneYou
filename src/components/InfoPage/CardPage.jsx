@@ -60,13 +60,13 @@ function CardIndividual( {art} ){
     return (
         <>
         <div class="cardForEffect" key={art.id}>
-            <Card sx={{ maxWidth: 400, maxHeight: 500 }}>
+            <Card sx={{ maxWidth: 400, maxHeight: 500 }} >
                     <CardMedia 
                         onClick={detailViewClick} 
-                            sx={{ maxWidth: 400, maxHeight: 300}}
+                            sx={{ maxWidth: 400, maxHeight: 250}}
                                 component="img"
                                     image={art.image} />
-                <CardContent>
+                <CardContent sx={{ backgroundColor: '#f2eaec' }}>
                     <Typography variant="h4" component="div" 
                         noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {art.title} 
@@ -78,15 +78,15 @@ function CardIndividual( {art} ){
                                 { art.galleryStatus === true ? art.galleryName : 'Unlisted' }
                     </Typography>
                 </CardContent>
-                <CardActions>
-                    <ButtonGroup
+                <CardActions  sx={{ backgroundColor: '#f2eaec' }}>
+                    <ButtonGroup 
                         fullWidth={true}>
                             {/* disabled works with setState to immediately render the button change the ternary keeps the state on reload */}
                         <Button onClick={handleListClick} 
                             disabled={art.galleryStatus === true ? true : false }>List</Button>
 
                         <Button onClick={handleSold} 
-                            disabled={art.soldStatus === true ? true : false }>Sold</Button>
+                            disabled={art.soldStatus === true ? true : false }>Sell</Button>
                             
                         <Button onClick={handleUnlist} 
                             disabled={art.galleryStatus === true ? false : true }>Unlist</Button>
