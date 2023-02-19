@@ -46,31 +46,42 @@ const InfoIndividual = () => {
     
   return (
     <>
-      <div className="individualArtCard">
-      <Card sx={{ display: 'flex' }}> 
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <CardMedia
+      <Card sx={{ maxWidth: 400, maxHeight: 1000 }}>
+        <CardMedia 
+          sx={{ maxWidth: 400, maxHeight: 1000}}
             component="img"
-            image={singleArt.image} />
-        </Box>
-      </Card>
-        {/* {<img src={singleArt.image}/>} */}
-        {<p>{singleArt.title}</p>}
-        {<p>{singleArt.description}</p>}
-        {<p>{singleArt.price}</p>}
-        
-        <ButtonGroup
-            fullWidth={true}>
-              {/* disabled works with setState to immediately render the button change the ternary keeps the state on reload */}
-              <Button onClick={handleEdit} >Edit</Button>
+              image={singleArt.image} />
+        <CardContent>
+          <Typography variant="h4" component="div" 
+            noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {singleArt.title} 
+          </Typography>
+          <Typography variant="h6" component="div" 
+            noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {singleArt.description} 
+          </Typography>
+          <Typography variant="h6" component="div" 
+            noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {singleArt.price} 
+          </Typography>
 
+          <Typography variant="h7" color="text.secondary" 
+            noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              { singleArt.galleryStatus === true ? <span className="active">● </span> : <span className="inactive">● </span>} 
+                { singleArt.galleryStatus === true ? singleArt.galleryName : 'Unlisted' }
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <ButtonGroup
+            fullWidth={true}>
+              <Button onClick={handleEdit} >Edit</Button>
               <Button onClick={handleDelete}>Delete</Button>
 
               <EditModal open={open} onClose={() => setOpen(false)} singleArt={singleArt} idUpdate={params.id} />
-              <DeleteInfoModal open={openDelete} onClose={() => setOpenDelete(false)} idToDelete={params.id} />
-              
+              <DeleteInfoModal open={openDelete} onClose={() => setOpenDelete(false)} idToDelete={params.id} />   
           </ButtonGroup>
-        </div>
+        </CardActions>
+      </Card>
     </>
   )
 }

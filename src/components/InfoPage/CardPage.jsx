@@ -35,8 +35,6 @@ function CardIndividual( {art} ){
 
     // Send dispatch, and set state of the List buttons
     const handleListClick = (event) => {
-        // Sets the open state to true, it is passed through the 
-        // compnent as a prop so it can be turned.
         event.preventDefault()
         setOpen(true)
     }
@@ -50,7 +48,6 @@ function CardIndividual( {art} ){
     const handleUnlist = (event) => {
         event.preventDefault();
         setOpenUnlist(true)
-        setDisableList(!disableList);
     }
 
     const history = useHistory()
@@ -85,11 +82,14 @@ function CardIndividual( {art} ){
                     <ButtonGroup
                         fullWidth={true}>
                             {/* disabled works with setState to immediately render the button change the ternary keeps the state on reload */}
-                        <Button onClick={handleListClick} disabled={disableList}>List</Button>
+                        <Button onClick={handleListClick} 
+                            disabled={art.galleryStatus === true ? true : false }>List</Button>
 
-                        <Button onClick={handleSold} disabled={disableSold}>Sold</Button>
+                        <Button onClick={handleSold} 
+                            disabled={art.soldStatus === true ? true : false }>Sold</Button>
                             
-                        <Button onClick={handleUnlist} disabled={disableUnlist}>Unlist</Button>
+                        <Button onClick={handleUnlist} 
+                            disabled={art.galleryStatus === true ? false : true }>Unlist</Button>
 
                         <ListArtModal open={open} onClose={() => setOpen(false)} art={art}  />
                         <SoldArtModal open={openSold} onClose={() => setOpenSold(false)} art={art}  />
