@@ -178,21 +178,21 @@ const ListArtModal = ( { open, onClose, art } ) => {
               </FormControl>
             </TabPanel>
             <TabPanel value="2">
-              <TextField sx={{width: 500, height: 75 }} 
+              <TextField sx={{width: 450, height: 75 }} 
                 id="standard-basic" 
                   label="Gallery Name" 
                       variant="standard" 
                           value={ nameInput } 
                               onChange={(event) => setGalleryName(event.target.value)}
               />
-            <TextField sx={{width: 500, height: 75 }} 
+            <TextField sx={{width: 450, height: 75 }} 
                 id="standard-basic" 
                   label="Gallery Address" 
                       variant="standard" 
                           value={ addressInput }
                               onChange={(event) => setAddress(event.target.value)}
               />
-            <TextField sx={{width: 500, height: 75 }} 
+            <TextField sx={{width: 450, height: 75 }} 
                 id="standard-basic" 
                   label="Gallery Comission" 
                       variant="standard" 

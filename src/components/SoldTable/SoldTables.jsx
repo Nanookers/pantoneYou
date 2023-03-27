@@ -94,7 +94,7 @@ function SoldTables() {
           <Grid item xs={4} sx={{ ml: '10px' }}>
             <Card sx={{ ml: '10px', borderColor: '#BE3455', borderWidth: '2px', backgroundColor: '#f2eaec' }}>
             <div className="counterTotal" >
-            <Typography variant="h4" component="div" sx={{ ml: '10px', mt: '6px' }}> Top Earning Galleries </Typography>
+            <Typography variant="h4" component="div" sx={{ ml: '10px', mt: '6px' }}> Highest Selling Galleries </Typography>
               {
                 soldCounter
                   .sort((low, high) => high.count - low.count)
