@@ -46,16 +46,17 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage, fileFilter })
 
 router.post('/', upload.single("file"), async (req, res) => {
+  // imageAddress gets the link that the photo is stored at
+  const title = req.body.title;
+  const price = req.body.price;
+  const description = req.body.description;
+  const user = req.user.id;
+
   try {
+    await pool.query('BEGIN');
     // Initiates the upload of the photo
     const result = await s3Uploadv2(req.file);
-
-    // imageAddress gets the link that the photo is stored at
     const imageAddress = result.Location;
-    const title = req.body.title;
-    const price = req.body.price;
-    const description = req.body.description;
-    const user = req.user.id;
 
     const sqlText = `
       INSERT INTO "artPieces"
@@ -82,10 +83,10 @@ router.post('/', upload.single("file"), async (req, res) => {
       INSERT INTO "soldPieces" ("artId")
         VALUES ($1);
     `;
-    
     const childSqlValues = [artId];
     await pool.query(childSqlText, childSqlValues);
-
+    await pool.query('COMMIT');
+    
     res.send(dbRes.rows);
   } catch (err) {
     console.error('Error in POST /api/images', err);
@@ -99,14 +100,14 @@ router.get('/:id', rejectUnauthenticated,  (req, res) => {
   const artId = req.params.id;
  
   const sqlQuery = `
-  SELECT "artPieces"."id", "title", "price", "description", "userId", "image", 
-    "galleryLocation", "galleryStatus", "soldStatus", "soldDate", 
-      COALESCE("location"."galleryName", '') AS "galleryName", 
-      COALESCE("location"."galleryAddress", '') AS "galleryAddress"
-        FROM "artPieces"
-          LEFT JOIN "location" ON "artPieces"."galleryLocation" = "location"."id"
-          WHERE "artPieces"."id"=$1 AND "artPieces"."userId" =$2;
-    `
+    SELECT "artPieces"."id", "title", "price", "description", "userId", "image", 
+      "galleryLocation", "galleryStatus", "soldStatus", "soldDate", 
+        COALESCE("location"."galleryName", '') AS "galleryName", 
+        COALESCE("location"."galleryAddress", '') AS "galleryAddress"
+          FROM "artPieces"
+            LEFT JOIN "location" ON "artPieces"."galleryLocation" = "location"."id"
+            WHERE "artPieces"."id"=$1 AND "artPieces"."userId" =$2;
+      `
   const sqlValues = [ artId, userId ];
   console.log(sqlQuery, sqlValues);
 
