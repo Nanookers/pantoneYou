@@ -36,7 +36,7 @@ function InfoPage() {
   // This is the function that runs the search by title
   const [searchValue, setSearchValue] = useState('')
   
-  // For the search function. toLowerCase removes case sensitive issues. 
+  // For the search function | toLowerCase removes case sensitive issues that might occur. 
   const searchForTitle = allArt.filter((art) => art.title.toLowerCase().includes(searchValue.toLowerCase()))
   console.log(searchForTitle);
 
@@ -111,7 +111,7 @@ function InfoPage() {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6} md={4} xl={3} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <TextField id="standard-basic-1" label="Search" variant="standard" type="text" value={searchValue} 
-                onChange={(event) => setSearchValue(event.target.value)} style={{ margin: 0, padding: 0, width: '100%' }} />
+                onChange={(event) => setSearchValue(event.target.value)} style={{ marginBottom: '20px', padding: 0, width: '100%' }} />
             </Grid>
           </Grid>
           <Grid container spacing={4}>
