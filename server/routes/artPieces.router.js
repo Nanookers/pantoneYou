@@ -56,8 +56,9 @@ router.post('/', upload.single("file"), async (req, res) => {
     await pool.query('BEGIN');
     // Initiates the upload of the photo
     const result = await s3Uploadv2(req.file);
+    // Returns the image location in the s3 photobucket
     const imageAddress = result.Location;
-
+    // Posts the image w/ photobucket location in the artPieces table
     const sqlText = `
       INSERT INTO "artPieces"
         ("title", "image", "price", "description", "userId")
@@ -69,16 +70,11 @@ router.post('/', upload.single("file"), async (req, res) => {
     const sqlValues = [title, imageAddress, price, description, user];
     console.log(sqlText, sqlValues);
 
-    //This Variable works double time, posting to the Parent DB, and allows me
-    // To call it below to post in the sold DB
+    // This is the db response that returns the information that I just create, allowing me to grab the id.
     const dbRes = await pool.query(sqlText, sqlValues);
-
-    // Get the id of the newly inserted art piece
     const artId = dbRes.rows[0].id;
 
-    // Insert the artId into the child table
-    // All art that is inserted into the soldPieces DB immediately, 
-    // Until Location sold is given an indicator, it will be useless. 
+    // soldPieces needs this id to allow for it to be sold at future times. 
     const childSqlText = `
       INSERT INTO "soldPieces" ("artId")
         VALUES ($1);
@@ -86,7 +82,7 @@ router.post('/', upload.single("file"), async (req, res) => {
     const childSqlValues = [artId];
     await pool.query(childSqlText, childSqlValues);
     await pool.query('COMMIT');
-    
+    // Sending response to SAGA for immediate rendering on the DOM.
     res.send(dbRes.rows);
   } catch (err) {
     console.error('Error in POST /api/images', err);
